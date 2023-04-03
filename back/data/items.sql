@@ -29,17 +29,17 @@ CREATE TABLE benefits (
     benefits_type varchar not null,
     benefits_duration varchart not null,
     garage_id integer not null,
-    FOREIGN KEY garage_id REFERENCES garages(garage_id)
+    CONSTRAINT fk_garage_id FOREIGN KEY (garage_id) REFERENCES garages(garage_id)
 );
 
-CREATE TABLE appointement (
-    appointement_id integer primary key autoincrement,
-    appointement_date datetime not null,
-    appointement_name varchar not null,
-    appointement_duration varchar not null,
-    users_id integer not null,
-    garages_id integer not null,
-    FOREIGN KEY users_id REFERENCES users(user_id),
-    FOREIGN KEY garages_id REFERENCES garages(garage_id)
+CREATE TABLE appointment (
+    appointment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    appointment_date DATETIME NOT NULL,
+    appointment_name VARCHAR NOT NULL,
+    appointment_duration VARCHAR NOT NULL,
+    user_id INTEGER NOT NULL,
+    garage_id INTEGER NOT NULL,
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_garage_id FOREIGN KEY (garage_id) REFERENCES garages(garage_id)
 );
 
