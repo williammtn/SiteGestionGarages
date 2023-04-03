@@ -1,33 +1,16 @@
 
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #f8f8f8;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 .navbar{
   height: 13vh;
   background-color: #252525;
@@ -42,19 +25,19 @@
 
 .navbar-composants{
   margin-left: 20vw;
-  color: #f8f8f8;
+  font-size: 3.5vh;
+  font-family: "calibri", sans-serif;
 }
 
-.navbar-composant{
+.nav-link a{
   margin-right: 5vw;
-  text-decoration: none !important;
-  color: #f8f8f8 !important;
-  
+  text-decoration: none;
+  color: #f8f8f8 ;
 }
+
+
 .navbar-logo{
   height: 13vh;
+  margin-left: 1vw;
 }
 
-body{
-  color: aliceblue;
-}
