@@ -22,6 +22,25 @@ function Navigation() {
   );
 }
 
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footer-container">
+        <div className="footer-items">
+            <ul className="list-inline">
+              <li className="list-inline-item"><a href="#">Conditions d'utilisation</a></li>
+              <li className="list-inline-item"><a href="#">Politique de confidentialité</a></li>
+              <li className="list-inline-item"><a href="#">Contactez-nous</a></li>
+            </ul>
+        </div>
+          <div className="footer-copyright">
+            <p className="text-muted">© {new Date().getFullYear()} ADF Garages</p>
+          </div> 
+          </div>
+    </footer>
+  );
+}
+
 function App() {
   return (
     <div className="App">
@@ -29,8 +48,14 @@ function App() {
       <>
       <Navigation/>
 
-    </>
+      </>
       </header>
+      <body>
+
+      </body>
+      <>
+        <Footer/>
+      </>
     </div>
   );
 }
