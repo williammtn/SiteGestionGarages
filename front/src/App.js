@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import MyCalendar from './calendar/calendar';
 import { Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Container, Navbar, Nav , NavDropdown} from "react-bootstrap";
@@ -50,13 +51,20 @@ function App() {
 
       </>
       </header>
+
+      <div id="calendar">
+        <MyCalendar/>
+      </div>
+
       <body>
 
       </body>
       <>
         <Footer/>
       </>
+
     </div>
+    
   );
 }
 
