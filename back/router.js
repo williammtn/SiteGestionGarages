@@ -41,28 +41,26 @@ routes.post("/signup", (req, res) => {
 }
 )
 
-routes.post("/signin ", (req, res) => {
+routes.post("/signin", (req,res) => {
   db.get("SELECT * FROM users WHERE user_name = $name",
-    { $name: req.body.name },
+    {$name: req.body.name},
     async (err, row) => {
       if (err) {
         console.log(err);
-        return res.json(err).status(500);
+        return res.status(500).json(err);
       }
       if (!row) {
-        return res.json(" bad user ");
+        return res.status(401).json("bad user");
       }
-      const match = await bcrypt.compare(req.body.password
-        , row.per_password);
+      const match = await bcrypt.compare(req.body.password, row.user_password);
       if (match) {
-        const token = jwt.sign({ id: row.per_id }, cfg.
-          jwtSecret, { expiresIn: "1h" });
-        return res.json({ token: token });
+        const token = jwt.sign({id: row.user_id}, cfg.jwtSecret, {expiresIn: "1h"});
+        return res.status(200).json({token: token});
       }
-      res.json(" bad password ").status(401);
+      return res.status(401).json("bad password");
     })
 })
-  
+
 
 routes.get("/users", (req, res) => {
     db.all("SELECT * FROM users", (err, rows) => {

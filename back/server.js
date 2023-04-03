@@ -10,7 +10,7 @@ app.use(morgan("combined" ) ); // format des messages de log
 app.use( cors() ); // autorise les requ ê tes de toute origine
 app.use(express.json()) // n é cessaire pour lire des donn é es json
 app.use(express.urlencoded({extended:true})); // décompose les formulaires
-app.use("", router)
+app.use(router)
 
 app.use((req , res)=>{
     res.status(404);
