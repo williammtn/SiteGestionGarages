@@ -3,7 +3,8 @@ import './App.css';
 import { Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Container, Navbar, Nav , NavDropdown} from "react-bootstrap";
-
+import Authentification from './Authentification/Authentification.js';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function Navigation() {
   return (
@@ -50,12 +51,17 @@ function App() {
 
       </>
       </header>
-      <body>
 
+      <body>
+      <Routes>
+        <Route path="/connexion" element={<Authentification/>} />
+      </Routes>
       </body>
+
       <>
         <Footer/>
       </>
+      
     </div>
   );
 }

@@ -64,6 +64,7 @@
 
 body{
   margin: 0px;
+  overflow-x: hidden;
 }
 
 .footer-items{
@@ -88,6 +89,15 @@ body{
   height:14vh;
   display: block;
 }
+
 .text-muted{
   margin: 0 !important;
+}
+
+.authentification {
+  position: relative;
+  padding-top: 5vh;
+  padding-left: 40vw;
+  padding-right: 40vw;
+  padding-bottom: 20vh;
 }
