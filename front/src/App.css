@@ -1,10 +1,3 @@
-.App-header {
-  background-color: #f8f8f8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
 .App-link {
   color: #61dafb;
@@ -13,31 +6,56 @@
 .navbar{
   height: 13vh;
   background-color: #252525;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  align-items: center;
-  display: flex;
-  text-align: center;
-  vertical-align: middle;
+  --bs-navbar-padding-y:0 !important;
+  --bs-navbar-toggler-icon-bg:url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(248,248,248)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+  --bs-navbar-toggler-border-color: #f8f8f8 !important;  
 }
 
+.nav-link{
+  color: #f8f8f8 !important;
+}
 .navbar-composants{
   margin-left: 20vw;
   font-size: 3.5vh;
   font-family: "calibri", sans-serif;
 }
 
-.nav-link a{
+.nav-item{
   margin-right: 5vw;
   text-decoration: none;
-  color: #f8f8f8 ;
+}
+.navbar-collapse.show{
+  background-color: #252525;
 }
 
+.navbar-toggler:focus{
+  border-color: #f8f8f8;
+}
+
+.burger{
+  box-shadow: none !important; 
+}
+.nav-link:hover {
+  color: #f8f8f8;
+  text-decoration: none;
+}
 
 .navbar-logo{
   height: 13vh;
   margin-left: 1vw;
+}
+
+.navbar-toggler{
+  margin-right: 4vw;
+}
+.navbar-toggler-icon {
+    background-color: #61dafb;
+  }
+@media screen and (max-width:992px) {
+  .navbar-composants{
+    margin-left: 5vw !important;
+  }
+  
 }
 
 .footer{
@@ -88,6 +106,7 @@ body{
   height:14vh;
   display: block;
 }
-.text-muted{
-  margin: 0 !important;
+.footer-text{
+  color: #f8f8f8 !important;
+  font-weight: 600;
 }

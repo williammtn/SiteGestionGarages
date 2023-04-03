@@ -4,23 +4,40 @@ import MyCalendar from './calendar/calendar';
 import { Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Container, Navbar, Nav , NavDropdown} from "react-bootstrap";
+import { Helmet } from 'react-helmet';
+import 'bootstrap/dist/js/bootstrap.bundle.min'
 
 
 function Navigation() {
   return (
-    <Navbar collapseOnSelect expand="lg" class="navbar" variant="dark">
-  <Navbar.Brand ><Link to="/accueil"><img className="navbar-logo" src={process.env.PUBLIC_URL + '/logo_projet_react.png'} alt="Logo" /></Link></Navbar.Brand>
-  <Navbar.Collapse id="responsive-navbar-nav">
-    <Nav className="navbar-composants">
-      <Nav.Link className="navbar-composant" style={{ textDecoration: 'none' }}><Link to="/accueil">Accueil</Link></Nav.Link>
-      <Nav.Link className="navbar-composant" style={{ textDecoration: 'none' }}><Link to="/calendrier">Calendrier</Link></Nav.Link>
-      <Nav.Link className="navbar-composant" style={{ textDecoration: 'none' }}><Link to="/listegarages">Liste des garages</Link></Nav.Link>
-      <Nav.Link className="navbar-composant" style={{ textDecoration: 'none' }}><Link to="/connexion">Connexion</Link></Nav.Link>
-    </Nav>
-  </Navbar.Collapse>
-</Navbar>
+    <nav className="navbar navbar-expand-xl ">
+  <Link to="/accueil"><img className="navbar-logo" src={process.env.PUBLIC_URL + '/logo_projet_react.png'} alt="Logo" /></Link>
+  <button className="navbar-toggler burger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span className="navbar-toggler-icon" ></span>
+</button>
+  <div className="collapse navbar-collapse" id="navbarNav">
+  <div className="navbar-composants">
+    <ul className="navbar-nav">
+      <li className="nav-item ">
+        <Link to="/accueil" className="nav-link">Accueil </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/calendrier" >Calendrier</Link>
+      </li>
+      <li className="nav-item">
+        <Link to="/listegarages" className="nav-link">Liste des garages</Link>
+      </li>
+        <li className="nav-item">
+          <Link to="/connexion" className="nav-link">Connexion</Link>
+        </li>
+    </ul>
+  </div>
+  </div>
+ 
+</nav>
 
   );
+  
 }
 
 function Footer() {
@@ -35,35 +52,42 @@ function Footer() {
             </ul>
         </div>
           <div className="footer-copyright">
-            <p className="text-muted">© {new Date().getFullYear()} ADF Garages</p>
+            <p className="footer-text">© {new Date().getFullYear()} ADF Garages</p>
           </div> 
-          </div>
+        </div>
     </footer>
   );
 }
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      <>
-      <Navigation/>
+    <div>
+      <Helmet>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"></link>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous"></link>
+          <link rel="icon" type="image/png" src={process.env.PUBLIC_URL + '/logo_projet_react.png'}></link>
+      </Helmet>
 
-      </>
-      </header>
+        <div>
 
-
-      <body>
-      <Routes>
-        <Route path="/calendrier" element={<MyCalendar/>} />
-      </Routes>
-      </body>
-      <>
+        <Navigation/>
+        <Routes>
+        <Route exact={true} path='/calendrier' element={<MyCalendar/>}/>
+        </Routes>
         <Footer/>
-      </>
 
-    </div>
-    
+        </div>
+        <script src="https://unpkg.com/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://unpkg.com/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+</div>
+
+     
   );
 }
 
