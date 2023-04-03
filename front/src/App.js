@@ -52,12 +52,11 @@ function App() {
       </>
       </header>
 
-      <div id="calendar">
-        <MyCalendar/>
-      </div>
 
       <body>
-
+      <Routes>
+        <Route path="/calendrier" element={<MyCalendar/>} />
+      </Routes>
       </body>
       <>
         <Footer/>
