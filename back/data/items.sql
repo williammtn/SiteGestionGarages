@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS garages;
 DROP TABLE IF EXISTS benefits;
-DROP TABLE IF EXISTS appointement;
+DROP TABLE IF EXISTS appointment;
 
 CREATE TABLE users (
     user_id integer primary key autoincrement,
