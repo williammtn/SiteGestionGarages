@@ -11,6 +11,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {useCookies} from "react-cookie";
 import User from './Profil/Profil';
 import Garage from './Garages/Garages';
+import SliderFunction from './slider/slider';
 
 function Navigation(props) {
   const navigate = useNavigate();
@@ -101,7 +102,7 @@ function App() {
           crossorigin="anonymous"></link>
           <link rel="icon" type="image/x-icon" src={process.env.PUBLIC_URL + '/favicon.ico'} />
       </Helmet>
-     
+      <SliderFunction/>
 
         <div>
 
