@@ -77,6 +77,7 @@ function App() {
           crossorigin="anonymous"></link>
           <link rel="icon" type="image/x-icon" src={process.env.PUBLIC_URL + '/favicon.ico'} />
       </Helmet>
+     
 
         <div>
 
@@ -86,8 +87,15 @@ function App() {
         <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
         </Routes>
         <Footer/>
-    </div>
-  </div>
+
+        </div>
+        <script src="https://unpkg.com/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://unpkg.com/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+       
+
+</div>
+
+     
   );
 }
 
