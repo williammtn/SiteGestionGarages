@@ -19,8 +19,8 @@ function Authentification(props) {
             if (response.token === undefined) {
                 alert("échec de connexion");
             } else {
-                alert(response.token);
                 props.setCookie("adf", {name: person.name, token: response.token}, "/");
+                navigate("/accueil");
             }
             setPerson({name: "", password: ""});
         } catch (e) {
