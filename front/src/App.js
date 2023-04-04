@@ -9,6 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import Authentification from './Authentification/Authentification.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {useCookies} from "react-cookie";
+import Garage from './Garages/Garages';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ function App() {
         <Navigation cookies={cookies} removeCookie={removeCookie} />
         <Routes>
         <Route exact={true} path='/calendrier' element={<MyCalendar/>}/>
+        <Route exact={true} path='/listegarages' element={<Garage/>}/>
         <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
         </Routes>
         <Footer/>

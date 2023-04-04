@@ -135,3 +135,11 @@ body{
   margin-bottom: 5vh;
   /* margin-bottom: 200px; */
 }
+
+.garages-tab {
+  position: relative;
+  padding-top: 15vh;
+  padding-left: 40vw;
+  padding-right: 40vw;
+  padding-bottom: 20vh;
+}
