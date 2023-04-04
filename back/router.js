@@ -42,8 +42,8 @@ routes.post("/signup", (req, res) => {
 )
 
 routes.post("/signin", (req,res) => {
-  db.get("SELECT * FROM users WHERE user_name = $name",
-    {$name: req.body.name},
+  db.get("SELECT * FROM users WHERE user_mail = $mail",
+    {$mail : req.body.mail},
     async (err, row) => {
       if (err) {
         console.log(err);
@@ -56,6 +56,7 @@ routes.post("/signin", (req,res) => {
       if (match) {
         const token = jwt.sign({id: row.user_id}, cfg.jwtSecret, {expiresIn: "1h"});
         return res.status(200).json({token: token});
+        
       }
       return res.status(401).json("bad password");
     })

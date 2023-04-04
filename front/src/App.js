@@ -1,15 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
 import MyCalendar from './calendar/calendar';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Container, Navbar, Nav , NavDropdown} from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import Authentification from './Authentification/Authentification.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import {useCookies} from "react-cookie";
 
 function Navigation() {
+  const navigate = useNavigate();
+
   return (
     <nav className="navbar navbar-expand-xl ">
   <Link to="/accueil"><img className="navbar-logo" src={process.env.PUBLIC_URL + '/logo_projet_react.png'} alt="Logo" /></Link>
@@ -61,6 +64,7 @@ function Footer() {
 }
 
 function App() {
+  const [cookies, setCookie, removeCookie] = useCookies(["adf"]);
   return (
     <div>
       <Helmet>
@@ -76,10 +80,10 @@ function App() {
 
         <div>
 
-        <Navigation/>
+        <Navigation cookies={cookies} removeCookie={removeCookie} />
         <Routes>
         <Route exact={true} path='/calendrier' element={<MyCalendar/>}/>
-        <Route path="/connexion" element={<Authentification/>} />
+        <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
         </Routes>
         <Footer/>
     </div>

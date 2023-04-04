@@ -1,8 +1,33 @@
 import React, { useState } from 'react';
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
-function Authentification() {
+function Authentification(props) {
     const [activeTab,setActiveTab] = useState('login');
-    
+    const [person, setPerson] = useState({mail: "", password: ""});
+
+    const navigate = useNavigate();
+
+    function handleTextChange(e, label) {
+        setPerson({...person, [label]: e.target.value})
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        try {
+            const response = (await axios.post("http://localhost:8000/signin", person)).data;
+            if (response.token === undefined) {
+                alert("échec de connexion");
+            } else {
+                alert(response.token);
+                props.setCookie("adf", {name: person.name, token: response.token}, "/");
+            }
+            setPerson({name: "", password: ""});
+        } catch (e) {
+            console.error("ERR", e);
+        }
+    }
+
     const handleTabClick = (tab) => {
       setActiveTab(tab);
     };
@@ -22,13 +47,13 @@ function Authentification() {
             <div className="tab-content">
 
                 <div className={`tab-pane fade show ${activeTab === 'login' ? 'active' : ''}`} id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form action='/' method='POST'>
+                    <form onSubmit={handleSubmit} method='POST'>
                         <div class="form-outline mb-4">
-                            <input type="email" id="loginName" class="form-control" placeholder='Email'/>
+                            <input type="email" id="loginName" class="form-control" placeholder='Email' value={person.mail} onChange={e => handleTextChange(e, "mail")}/>
                         </div>
 
                         <div class="form-outline mb-4">
-                            <input type="password" id="loginPassword" class="form-control" placeholder='Mot de passe'/>
+                            <input type="password" id="loginPassword" class="form-control" placeholder='Mot de passe' value={person.password} onChange={e => handleTextChange(e, "password")}/>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
