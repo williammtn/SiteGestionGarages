@@ -20,7 +20,7 @@
   color: #f8f8f8 !important;
 }
 .navbar-composants{
-  margin-left: 20vw;
+  margin-left: 8vw;
   font-size: 3.5vh;
   font-family: "calibri", sans-serif;
 }
@@ -45,9 +45,19 @@
   text-decoration: none;
 }
 
+.nav-btn{
+  background-color: red;
+  border-radius: 5px;
+  border-color: transparent;
+  color: #f8f8f8;
+}
 .navbar-logo{
   height: 13vh;
   margin-left: 1vw;
+}
+
+.navbar-profil{
+  height: 3.5vh;
 }
 
 .navbar-toggler{
@@ -63,6 +73,16 @@
   
 }
 
+.Profil{
+  margin-top: 15vh;
+  text-align: center;
+  
+}
+.Profil-infos{
+  text-decoration: none;
+  list-style: none;
+}
+
 .form-nav-item{
   margin-right: 0;
 }
@@ -71,6 +91,7 @@
 }
 .footer{
   bottom: 0; 
+  margin-top: 40vh;
   background-color: #252525;
 }
 
@@ -109,7 +130,6 @@ body{
   text-align: center;
   padding-bottom: 0.8vh;
   font-size: 2.1vh;
-
 }
 
 .footer-container{
@@ -120,6 +140,7 @@ body{
 .footer-text{
   color: #f8f8f8 !important;
   font-weight: 600;
+  margin-bottom: 0 !important;
 }
 
 .authentification {
@@ -128,6 +149,7 @@ body{
   padding-left: 40vw;
   padding-right: 40vw;
   padding-bottom: 20vh;
+  margin-top: 13vh;
 }
 .fc{
   height: 80vh;

@@ -22,7 +22,7 @@ function Authentification(props) {
             if (response.token === undefined) {
                 alert("échec de connexion");
             } else {
-                props.setCookie("adf", {name: person.name, token: response.token}, "/");
+                props.setCookie("adf", {mail: person.mail, token: response.token, id: response.id}, "/");
                 navigate("/accueil");
             }
         } catch (e) {
@@ -65,7 +65,6 @@ function Authentification(props) {
             </ul>
 
             <div className="tab-content">
-
                 <div className={`tab-pane fade show ${activeTab === 'login' ? 'active' : ''}`} id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                     <form onSubmit={handleSubmitSignIn} method='POST'>
                         <div class="form-outline mb-4">
