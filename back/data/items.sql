@@ -1,14 +1,14 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS garages;
 DROP TABLE IF EXISTS benefits;
-DROP TABLE IF EXISTS appointement;
+DROP TABLE IF EXISTS appointment;
 
 CREATE TABLE users (
     user_id integer primary key autoincrement,
-    user_role integer not null,
+    user_role integer DEFAULT 0,
     user_name varchar not null,
     user_firstname varchar not null,
-    user_mail varchar not null,
+    user_mail varchar not null UNIQUE,
     user_password varchar not null,
     user_tel varchar not null
 );
