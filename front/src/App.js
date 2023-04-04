@@ -9,9 +9,22 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import Authentification from './Authentification/Authentification.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {useCookies} from "react-cookie";
+import User from './Profil/Profil';
 
-function Navigation() {
+function Navigation(props) {
   const navigate = useNavigate();
+  function handleLogout() {
+    props.removeCookie("adf");
+
+    navigate("/accueil");
+  }
+
+  let mail;
+  let id;
+  if (props.cookies && props.cookies.adf && props.cookies.adf.mail && props.cookies.adf.id) {
+    mail = props.cookies.adf.mail;
+    id = props.cookies.adf.id;
+}
 
   return (
     <nav className="navbar navbar-expand-xl ">
@@ -31,9 +44,19 @@ function Navigation() {
       <li className="nav-item">
         <Link to="/listegarages" className="nav-link">Liste des garages</Link>
       </li>
+      {mail !== undefined &&
+        <li className="nav-item">
+          <Link className="nav-link" to={`/profil/${id}`} ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> {mail}</Link>
+        </li>
+          
+      }
+      {mail === undefined ?
         <li className="nav-item">
           <Link to="/connexion" className="nav-link">Connexion</Link>
-        </li>
+        </li> :
+        <button type="btn" className="nav-btn" onClick={handleLogout}>Déconnexion</button>
+      }
+        
     </ul>
   </div>
   </div>
@@ -85,10 +108,13 @@ function App() {
         <Routes>
         <Route exact={true} path='/calendrier' element={<MyCalendar/>}/>
         <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
+        {/* <Route path="/accueil" element /> */}
+        <Route path="profil/:id" element={<User cookies={cookies} />} />
         </Routes>
         <Footer/>
 
         </div>
+
         <script src="https://unpkg.com/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
         <script src="https://unpkg.com/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
        

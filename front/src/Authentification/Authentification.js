@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 function Authentification(props) {
     const [activeTab,setActiveTab] = useState('login');
-    const [person, setPerson] = useState({mail: "", password: ""});
+    const [person, setPerson] = useState({mail: "", password: "", id: ""});
 
     const navigate = useNavigate();
 
@@ -19,10 +19,10 @@ function Authentification(props) {
             if (response.token === undefined) {
                 alert("échec de connexion");
             } else {
-                props.setCookie("adf", {name: person.name, token: response.token}, "/");
+                props.setCookie("adf", {mail: person.mail, token: response.token, id: response.id}, "/");
                 navigate("/accueil");
             }
-            setPerson({name: "", password: ""});
+            setPerson({mail: "", password: "", id: ""});
         } catch (e) {
             console.error("ERR", e);
         }
@@ -45,7 +45,6 @@ function Authentification(props) {
             </ul>
 
             <div className="tab-content">
-
                 <div className={`tab-pane fade show ${activeTab === 'login' ? 'active' : ''}`} id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                     <form onSubmit={handleSubmit} method='POST'>
                         <div class="form-outline mb-4">
