@@ -4,11 +4,6 @@
 }
 
 .navbar{
-  position:fixed !important;
-  margin-top: 0 !important;
-  top:0 !important;
-  width: 100vw;
-  z-index: 999;
   height: 13vh;
   background-color: #252525;
   --bs-navbar-padding-y:0 !important;
@@ -70,6 +65,7 @@
   color: var(--bs-primary) !important;
 }
 .footer{
+  position: fixed;
   bottom: 0; 
   background-color: #252525;
 }
@@ -125,20 +121,6 @@ body{
 .authentification {
   position: relative;
   padding-top: 5vh;
-  padding-left: 40vw;
-  padding-right: 40vw;
-  padding-bottom: 20vh;
-}
-.fc{
-  height: 80vh;
-  margin-top: 20vh;
-  margin-bottom: 5vh;
-  /* margin-bottom: 200px; */
-}
-
-.garages-tab {
-  position: relative;
-  padding-top: 15vh;
   padding-left: 40vw;
   padding-right: 40vw;
   padding-bottom: 20vh;

@@ -1,5 +1,5 @@
 const express = require("express"); // le package express
-const router = require("./router").default;
+const router = require("./router");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");

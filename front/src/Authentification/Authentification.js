@@ -6,16 +6,13 @@ function Authentification(props) {
     const [activeTab,setActiveTab] = useState('login');
     const [person, setPerson] = useState({mail: "", password: ""});
 
-    const [newPerson, setNewPerson] = useState({name:"",firstname:"",password:"",mail:"",tel:""});
-
     const navigate = useNavigate();
 
     function handleTextChange(e, label) {
         setPerson({...person, [label]: e.target.value})
-        setNewPerson({...newPerson, [label]: e.target.value})
     }
 
-    async function handleSubmitSignIn(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         try {
             const response = (await axios.post("http://localhost:8000/signin", person)).data;
@@ -25,23 +22,7 @@ function Authentification(props) {
                 props.setCookie("adf", {name: person.name, token: response.token}, "/");
                 navigate("/accueil");
             }
-        } catch (e) {
-            console.error("ERR", e);
-        }
-    }
-
-    async function handleSubmitSignUp(e) {
-        e.preventDefault();
-        try {
-            const response = (await axios.post("http://localhost:8000/signup", newPerson)).data;
-            if(response.code == undefined){
-                alert("Utilisateur "+newPerson.name +" "+newPerson.firstname+" a été créé. Vous pouvez vous connecter");
-                navigate("/accueil");
-            }
-            else{
-                alert("Erreur");
-            }
-            
+            setPerson({name: "", password: ""});
         } catch (e) {
             console.error("ERR", e);
         }
@@ -50,16 +31,15 @@ function Authentification(props) {
     const handleTabClick = (tab) => {
       setActiveTab(tab);
     };
-
     return (
         <div className='authentification'>
             <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
                 <li className="nav-item form-nav-item" role="presentation">
-                    <a className={`nav-link ${activeTab === 'login' ? 'active' : 'form-nav-link'}`} id="tab-login" href="#login" onClick={() => handleTabClick('login')} role="tab"
+                    <a className={`nav-link ${activeTab === 'login' ? 'active' : 'form-nav-link'}`} id="tab-login" href="#" onClick={() => handleTabClick('login')} role="tab"
                         aria-controls="pills-login" aria-selected={activeTab === 'login'}>Connexion</a>
                 </li>
                 <li className="nav-item form-nav-item" role="presentation">
-                    <a className={`nav-link ${activeTab === 'register' ? 'active' : 'form-nav-link'}`} id="tab-register" href="#register" onClick={() => handleTabClick('register')} role="tab"
+                    <a className={`nav-link ${activeTab === 'register' ? 'active' : 'form-nav-link'}`} id="tab-register" href="#" onClick={() => handleTabClick('register')} role="tab"
                         aria-controls="pills-register" aria-selected={activeTab === 'register'}>S'enregistrer</a>
                 </li>
             </ul>
@@ -67,7 +47,7 @@ function Authentification(props) {
             <div className="tab-content">
 
                 <div className={`tab-pane fade show ${activeTab === 'login' ? 'active' : ''}`} id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form onSubmit={handleSubmitSignIn} method='POST'>
+                    <form onSubmit={handleSubmit} method='POST'>
                         <div class="form-outline mb-4">
                             <input type="email" id="loginName" class="form-control" placeholder='Email' value={person.mail} onChange={e => handleTextChange(e, "mail")}/>
                         </div>
@@ -81,25 +61,37 @@ function Authentification(props) {
                 </div>
 
                 <div className={`tab-pane fade show ${activeTab === 'register' ? 'active' : ''}`} id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                    <form onSubmit={handleSubmitSignUp} method='POST'>
+                    <form>
                         <div class="form-outline mb-4">
-                            <input type="text" id="registerName" class="form-control" placeholder='Nom' value={newPerson.name} onChange={e => handleTextChange(e,"name")}/>
+                            <input type="text" id="registerName" class="form-control" placeholder='Nom'/>
                         </div>
 
                         <div class="form-outline mb-4">
-                            <input type="text" id="registerFirstname" class="form-control" placeholder='Prénom' value={newPerson.firstname} onChange={e => handleTextChange(e,"firstname")}/>
+                            <input type="text" id="registerFirstname" class="form-control" placeholder='Prénom'/>
                         </div>
 
                         <div class="form-outline mb-4">
-                            <input type="email" id="registerEmail" class="form-control" placeholder='Email' value={newPerson.mail} onChange={e => handleTextChange(e, "mail")}/>
+                            <input type="email" id="registerEmail" class="form-control" placeholder='Email'/>
                         </div>
 
                         <div class="form-outline mb-4">
-                            <input type="password" id="registerPassword" class="form-control" placeholder='Mot de passe' value={newPerson.password} onChange={e => handleTextChange(e, "password")}/>
+                            <input type="password" id="registerPassword" class="form-control" placeholder='Mot de passe'/>
                         </div>
 
                         <div class="form-outline mb-4">
-                            <input type="tel" id="registerPhone" class="form-control" placeholder='Téléphone' value={newPerson.tel} onChange={e => handleTextChange(e, "tel")}/>
+                            <input type="tel" id="registerPhone" class="form-control" placeholder='Téléphone'/>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="registerAddress" class="form-control" placeholder='Adresse'/>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="registerCity" class="form-control" placeholder='Ville'/>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="registerZipCode" class="form-control" placeholder='Code Postal'/>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>

@@ -9,7 +9,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import Authentification from './Authentification/Authentification.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {useCookies} from "react-cookie";
-import Garage from './Garages/Garages';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -78,26 +77,17 @@ function App() {
           crossorigin="anonymous"></link>
           <link rel="icon" type="image/x-icon" src={process.env.PUBLIC_URL + '/favicon.ico'} />
       </Helmet>
-     
 
         <div>
 
         <Navigation cookies={cookies} removeCookie={removeCookie} />
         <Routes>
         <Route exact={true} path='/calendrier' element={<MyCalendar/>}/>
-        <Route exact={true} path='/listegarages' element={<Garage/>}/>
         <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
         </Routes>
         <Footer/>
-
-        </div>
-        <script src="https://unpkg.com/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <script src="https://unpkg.com/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-       
-
-</div>
-
-     
+    </div>
+  </div>
   );
 }
 
