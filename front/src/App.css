@@ -58,6 +58,12 @@
   
 }
 
+.form-nav-item{
+  margin-right: 0;
+}
+.form-nav-link{
+  color: var(--bs-primary) !important;
+}
 .footer{
   position: fixed;
   bottom: 0; 

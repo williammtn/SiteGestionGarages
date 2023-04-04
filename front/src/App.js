@@ -71,7 +71,7 @@ function App() {
           rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
           crossorigin="anonymous"></link>
-          <link rel="icon" type="image/png" src={process.env.PUBLIC_URL + '/logo_projet_react.png'}></link>
+          <link rel="icon" type="image/x-icon" src={process.env.PUBLIC_URL + '/favicon.ico'} />
       </Helmet>
 
         <div>
