@@ -10,6 +10,7 @@ import Authentification from './Authentification/Authentification.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {useCookies} from "react-cookie";
 import User from './Profil/Profil';
+import Garage from './Garages/Garages';
 
 function Navigation(props) {
   const navigate = useNavigate();
@@ -107,6 +108,7 @@ function App() {
         <Navigation cookies={cookies} removeCookie={removeCookie} />
         <Routes>
         <Route exact={true} path='/calendrier' element={<MyCalendar/>}/>
+        <Route exact={true} path='/listegarages' element={<Garage/>}/>
         <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
         {/* <Route path="/accueil" element /> */}
         <Route path="profil/:id" element={<User cookies={cookies} />} />

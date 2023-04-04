@@ -116,3 +116,7 @@ routes.get("/appointment", (req, res) => {
     }
   });
 });
+
+  module.exports = routes;
+
+
