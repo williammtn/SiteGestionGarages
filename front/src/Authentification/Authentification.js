@@ -9,12 +9,12 @@ function Authentification() {
     return (
         <div className='authentification'>
             <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-                <li className="nav-item" role="presentation">
-                    <a className={`nav-link ${activeTab === 'login' ? 'active' : ''}`} id="tab-login" href="#" onClick={() => handleTabClick('login')} role="tab"
+                <li className="nav-item form-nav-item" role="presentation">
+                    <a className={`nav-link ${activeTab === 'login' ? 'active' : 'form-nav-link'}`} id="tab-login" href="#" onClick={() => handleTabClick('login')} role="tab"
                         aria-controls="pills-login" aria-selected={activeTab === 'login'}>Connexion</a>
                 </li>
-                <li className="nav-item" role="presentation">
-                    <a className={`nav-link ${activeTab === 'register' ? 'active' : ''}`} id="tab-register" href="#" onClick={() => handleTabClick('register')} role="tab"
+                <li className="nav-item form-nav-item" role="presentation">
+                    <a className={`nav-link ${activeTab === 'register' ? 'active' : 'form-nav-link'}`} id="tab-register" href="#" onClick={() => handleTabClick('register')} role="tab"
                         aria-controls="pills-register" aria-selected={activeTab === 'register'}>S'enregistrer</a>
                 </li>
             </ul>
