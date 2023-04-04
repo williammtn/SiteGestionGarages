@@ -82,6 +82,7 @@
 
 body{
   margin: 0px;
+  overflow-x: hidden;
 }
 
 .footer-items{
@@ -109,4 +110,12 @@ body{
 .footer-text{
   color: #f8f8f8 !important;
   font-weight: 600;
+}
+
+.authentification {
+  position: relative;
+  padding-top: 5vh;
+  padding-left: 40vw;
+  padding-right: 40vw;
+  padding-bottom: 20vh;
 }

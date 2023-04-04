@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { Container, Navbar, Nav , NavDropdown} from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import 'bootstrap/dist/js/bootstrap.bundle.min'
-
+import Authentification from './Authentification/Authentification.js';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function Navigation() {
   return (
@@ -78,16 +79,11 @@ function App() {
         <Navigation/>
         <Routes>
         <Route exact={true} path='/calendrier' element={<MyCalendar/>}/>
+        <Route path="/connexion" element={<Authentification/>} />
         </Routes>
         <Footer/>
-
-        </div>
-        <script src="https://unpkg.com/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <script src="https://unpkg.com/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-
-</div>
-
-     
+    </div>
+  </div>
   );
 }
 
