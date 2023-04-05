@@ -177,6 +177,20 @@ routes.get("/appointment/:id", (req, res) => {
   );
 });
 
+routes.delete("/appointment_delete/:id", (req, res) => {
+  db.run("DELETE FROM appointment WHERE appointment_id=?", req.params.id,
+    (err, rows) => {
+      if (err) {
+        res.status(500).send({ error: "Oups!" });
+        console.error(err.stack);
+      } else {
+        res.json(rows);
+      }
+    }
+  );
+});
+
+
 routes.post("/benefits", (req, res) => {
   db.run(
     " INSERT INTO benefits ( benefits_name, benefits_type, benefits_duration, garage_id)values($name, $type,$duration, $garage_id)",
