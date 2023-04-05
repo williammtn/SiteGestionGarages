@@ -38,9 +38,9 @@ routes.post("/signup", (req, res) => {
   });
 });
 
-routes.post("/signin", (req,res) => {
+routes.post("/signin",(req, res) => {
   db.get("SELECT * FROM users WHERE user_mail = $mail",
-    {$mail: req.body.mail},
+    { $mail: req.body.mail },
     async (err, row) => {
       if (err) {
         console.log(err);
@@ -73,13 +73,32 @@ routes.get("/users", (req, res) => {
   });
 });
 
-routes.get("/profil/:id", (req, res) => {
+routes.get("/profil/:id", auth.authenticate(),(req, res) => {
   db.get("SELECT * FROM users where user_id= ?", req.params.id, (err, rows) => {
     if (err) {
       res.status(500).send({ error: "Oups!" });
       console.error(err.stack);
     } else {
       res.json(rows);
+    }
+  });
+});
+
+routes.delete("/delete/:id", (req, res) => {
+  const userId = req.params.id;
+  db.run("DELETE FROM users WHERE user_id = ?", userId, (err) => {
+    if (err) {
+      res.status(500).send({ error: "Erreur lors de la suppression de l'utilisateur" });
+      console.error(err.stack);
+    } else {
+      db.run("DELETE FROM appointment WHERE user_id = ?", userId, (err) => {
+        if (err) {
+          res.status(500).send({ error: "Erreur lors de la suppression des rendez-vous de l'utilisateur" });
+          console.error(err.stack);
+        } else {
+          res.status(204).send(); // 204 signifie "No Content"
+        }
+      });
     }
   });
 });
