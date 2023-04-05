@@ -190,6 +190,18 @@ routes.delete("/appointment_delete/:id", (req, res) => {
   );
 });
 
+routes.get("/appointment_liste/:id", (req, res) => {
+  db.all("SELECT appointment_id, users.user_name, users.user_firstname, users.user_mail, users.user_tel, disponibilities.disponibility_date, disponibilities.start_hour, disponibilities.end_hour FROM disponibilities JOIN garages ON garages.garage_id = disponibilities.garage_id JOIN users ON users.user_id = garages.user_id JOIN appointment ON appointment.garage_id = garages.garage_id WHERE garages.garage_id = ? AND appointment.appointment_id = appointment_id ", req.params.id,
+    (err, rows) => {
+      if (err) {
+        res.status(500).send({ error: "Oups!" });
+        console.error(err.stack);
+      } else {
+        res.json(rows);
+      }
+    }
+  );
+});
 
 routes.post("/benefits", (req, res) => {
   db.run(
