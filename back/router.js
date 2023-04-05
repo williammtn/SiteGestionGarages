@@ -293,3 +293,36 @@ routes.post("/disponibilities", (req, res) => {
     }
   );
 });
+
+routes.get("/profile/disponibilities/:id", (req, res) => {
+  const { id } = req.params;
+  db.all(`SELECT disponibility_id, disponibility_date, start_hour, end_hour 
+          FROM disponibilities 
+          join garages on garages.garage_id = disponibilities.garage_id  
+          join users on users.user_id = garages.user_id 
+          where garages.garage_id = ?
+          order by disponibility_date asc;`, [id], (err, rows) => {
+    if (err) {
+      res.status(500).send({ error: "Oups!" });
+      console.error(err.stack);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+routes.delete("/profile/disponibilities/delete/:id", (req, res) => {
+  const { id } = req.params;
+  db.run(
+    `DELETE FROM disponibilities WHERE disponibility_id = ?`,
+    [id],
+    (err) => {
+      if (err) {
+        res.status(500).send({ error: "Oups!" });
+        console.error(err.stack);
+      } else {
+        res.send({ message: "Disponibilité supprimée avec succès." });
+      }
+    }
+  );
+});
