@@ -158,6 +158,10 @@ body{
   /* margin-bottom: 200px; */
 }
 
+.form{
+  margin-top: 150px;
+}
+
 .garages-tab {
   position: relative;
   padding-top: 15vh;
