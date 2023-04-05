@@ -16,7 +16,6 @@ routes.get("/home", auth.authenticate(), (req, res) => {
 });
 
 
-
 routes.post("/signup", (req, res) => {
   bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
     db.get(
@@ -39,9 +38,10 @@ routes.post("/signup", (req, res) => {
   });
 });
 
-routes.post("/signin", (req,res) => {
-  db.all("SELECT * FROM users WHERE user_mail = $mail",
-    {$mail: req.body.mail},
+routes.post("/signin ", (req, res) => {
+  db.get(
+    "SELECT * FROM users WHERE user_name = $name",
+    { $name: req.body.name },
     async (err, row) => {
       if (err) {
         console.log(err);
@@ -50,12 +50,12 @@ routes.post("/signin", (req,res) => {
       if (!row) {
         return res.status(401).json("bad user");
       }
-      const match = await bcrypt.compare(req.body.password, row.user_password);
+      const match = await bcrypt.compare(req.body.password, row.per_password);
       if (match) {
-        const token = jwt.sign({ id: row.user_id }, cfg.jwtSecret, {
+        const token = jwt.sign({ id: row.per_id }, cfg.jwtSecret, {
           expiresIn: "1h",
         });
-        return res.json({ token: token , id: row.user_id});
+        return res.json({ token: token });
       }
       res.json(" bad password ").status(401);
     }
@@ -73,18 +73,6 @@ routes.get("/users", (req, res) => {
   });
 });
 
-routes.get("/profil/:id", (req, res) => {
-  db.get("SELECT * FROM users where user_id= ?", req.params.id, (err, rows) => {
-    if (err) {
-      res.status(500).send({ error: "Oups!" });
-      console.error(err.stack);
-    } else {
-      res.json(rows);
-    }
-  });
-});
-
-
 routes.get("/garages", (req, res) => {
   db.all("SELECT * FROM garages", (err, rows) => {
     if (err) {
@@ -95,6 +83,7 @@ routes.get("/garages", (req, res) => {
     }
   });
 });
+
 routes.get("/benefits", (req, res) => {
   db.all("SELECT * FROM benefits", (err, rows) => {
     if (err) {
@@ -106,8 +95,9 @@ routes.get("/benefits", (req, res) => {
   });
 });
 
-routes.get("/appointment", (req, res) => {
-  db.all("SELECT appointment_id, appointment_date, appointment_name, appointment_duration, user_name, user_firstname, user_tel, garage_name, garage_city FROM appointment LEFT JOIN users USING(user_id) LEFT JOIN garages USING(garage_id)", (err, rows) => {
+routes.get("/benefits/:id", (req, res) => {
+  const { id } = req.params;
+  db.all(`SELECT * FROM benefits WHERE garage_id = ?`, [id], (err, rows) => {
     if (err) {
       res.status(500).send({ error: "Oups!" });
       console.error(err.stack);
@@ -117,6 +107,79 @@ routes.get("/appointment", (req, res) => {
   });
 });
 
-  module.exports = routes;
+routes.get("/appointment", (req, res) => {
+  db.all(
+    "SELECT appointment_id, appointment_date, appointment_name, appointment_duration, user_name, user_firstname, user_tel, garage_name, garage_city FROM appointment LEFT JOIN users USING(user_id) LEFT JOIN garages USING(garage_id)",
+    (err, rows) => {
+      if (err) {
+        res.status(500).send({ error: "Oups!" });
+        console.error(err.stack);
+      } else {
+        res.json(rows);
+      }
+    }
+  );
+});
 
+routes.post("/benefits", (req, res) => {
+  db.run(
+    " INSERT INTO benefits ( benefits_name, benefits_type, benefits_duration, garage_id)values($name, $type,$duration, $garage_id)",
+    {
+      $name: req.body.name,
+      $type: req.body.type,
+      $duration: req.body.duration,
+      $garage_id: req.body.garage_id,
+    },
+    (err, row) => {
+      if (err) {
+        console.log('body', req.body);
+        console.log('err', err);
+        return res.json(err).status(401);
+      }
+      return res.sendStatus(201);
+    }
+  );
+});
 
+routes.post("/garages", (req, res) => {
+  db.run(
+    " INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city)values($name, $mechanics, $body, $address, $zipcode, $city)",
+    {
+      $name: req.body.name,
+      $mechanics: req.body.mechanics,
+      $body: req.body.body,
+      $address: req.body.address,
+      $zipcode: req.body.zipcode,
+      $city: req.body.city,
+    },
+    (err, row) => {
+      if (err) {
+        console.log('body', req.body);
+        console.log('err', err);
+        return res.json(err).status(401);
+      }
+      return res.sendStatus(201);
+    }
+  );
+});
+
+routes.post("/appointment", (req, res) => {
+  db.run(
+    " INSERT INTO appointment (appointment_date, appointment_name, appointment_duration, user_id, garage_id)values($date, $name, $duration, $user_id, $garage_id)",
+    {
+      $date: req.body.date,
+      $name: req.body.name,
+      $duration: req.body.duration,
+      $user_id: req.body.user_id,
+      $garage_id: req.body.garage_id,
+    },
+    (err, row) => {
+      if (err) {
+        console.log('body', req.body);
+        console.log('err', err);
+        return res.json(err).status(401);
+      }
+      return res.sendStatus(201);
+    }
+  );
+});
