@@ -38,10 +38,9 @@ routes.post("/signup", (req, res) => {
   });
 });
 
-routes.post("/signin", (req, res) => {
-  db.get(
-    "SELECT * FROM users WHERE user_mail = $mail",
-    { $mail: req.body.mail },
+routes.post("/signin", (req,res) => {
+  db.get("SELECT * FROM users WHERE user_mail = $mail",
+    {$mail: req.body.mail},
     async (err, row) => {
       if (err) {
         console.log(err);
@@ -55,15 +54,27 @@ routes.post("/signin", (req, res) => {
         const token = jwt.sign({ id: row.user_id }, cfg.jwtSecret, {
           expiresIn: "1h",
         });
-        return res.json({ token: token });
+        return res.json({ token: token , id: row.user_id});
       }
       res.json(" bad password ").status(401);
     }
   );
 });
 
+
 routes.get("/users", (req, res) => {
   db.all("SELECT * FROM users", (err, rows) => {
+    if (err) {
+      res.status(500).send({ error: "Oups!" });
+      console.error(err.stack);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+routes.get("/profil/:id", (req, res) => {
+  db.get("SELECT * FROM users where user_id= ?", req.params.id, (err, rows) => {
     if (err) {
       res.status(500).send({ error: "Oups!" });
       console.error(err.stack);
