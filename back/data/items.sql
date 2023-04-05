@@ -80,3 +80,5 @@ VALUES (2, '2023-04-11', '09:00', '20:00');
 INSERT INTO appointment (user_id, garage_id, disponibility_id, benefits_id)
 VALUES (1, 1, 1, 1);
 
+INSERT INTO appointment (user_id, garage_id, disponibility_id, benefits_id)
+VALUES (2, 2, 2, 2);
