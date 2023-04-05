@@ -18,9 +18,9 @@ function MyCalendar(props) {
       .get("http://localhost:8000/appointment")
       .then((response) => {
         const formattedEvents = response.data.map((event) => ({
-          title: event.appointment_name,
-          start: event.appointment_date,
-          end: event.appointment_date,
+          title: event.benefits_name,
+          start: event.disponibility_date,
+          end: event.disponibility_date,
           allDay: false,
         }));
         setEvents(formattedEvents);

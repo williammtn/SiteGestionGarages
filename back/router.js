@@ -152,7 +152,7 @@ routes.get("/disponibilities/:id", (req, res) => {
 
 routes.get("/appointment", (req, res) => {
   db.all(
-    "SELECT appointment_id, user_name, user_firstname, user_tel, garage_name, garage_city FROM appointment LEFT JOIN users USING(user_id) LEFT JOIN garages USING(garage_id) LEFT JOIN benefits",
+    "SELECT appointment_id, user_name, user_firstname, user_tel, garage_name, garage_city, benefits_name, benefits_type, disponibility_date FROM appointment LEFT JOIN users USING(user_id) LEFT JOIN garages USING(garage_id) LEFT JOIN benefits USING(benefits_id) LEFT JOIN disponibilities USING(disponibility_id)",
     (err, rows) => {
       if (err) {
         res.status(500).send({ error: "Oups!" });
