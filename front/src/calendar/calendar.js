@@ -144,6 +144,7 @@ function MyCalendar(props) {
                       value={selectedGarage}
                       onChange={handleGarageChange}
                       isClearable
+                      dataCY = "reports-menu"
                     />
                   </div>
                 </div>
@@ -173,6 +174,7 @@ function MyCalendar(props) {
                           disponibility.end_hour}
                       </label>
                       <input
+                        id = "TestButtonCY"
                         key={disponibility.disponibility_id}
                         type="radio"
                         name="dispo"
