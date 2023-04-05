@@ -41,6 +41,7 @@ CREATE TABLE disponibilities (
     disponibility_date date not null,
     start_hour TIME not null,
     end_hour TIME not null CHECK (end_hour > start_hour),
+    available integer not null CHECK (available in (0,1)) default 1,
     CONSTRAINT fk_garage_id FOREIGN KEY (garage_id) REFERENCES garages(garage_id)
 );
 
