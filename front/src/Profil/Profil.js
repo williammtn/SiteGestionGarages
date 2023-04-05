@@ -9,6 +9,41 @@ export default function User(props) {
     const [rdvliste, setRdvListe] = useState([]);
     const [activeTab,setActiveTab] = useState('profil');
     const navigate = useNavigate();
+
+    const [userToUpdate, setUserToUpdate] = useState({
+        name: user.user_name,
+        firstname: user.user_firstname,
+        mail: user.user_mail,
+        password: user.user_password,
+        tel: user.user_tel,
+    });
+
+    const handleTextChange = (e, field) => {
+        setUserToUpdate({ ...userToUpdate, [field]: e.target.value });
+    };
+
+    const handleSubmitUpdate = async (e) => {
+        e.preventDefault();
+        const requiredFields = ["name", "firstname", "mail", "password", "tel"];
+        const emptyFields = requiredFields.filter((field) => !userToUpdate[field]);
+
+        if (emptyFields.length > 0) {
+            alert("Veuillez remplir tous les champs !");
+            return;
+        }
+        try {
+            if (props.cookies && props.cookies.adf) {
+                const response = await axios.put(`http://localhost:8000/users/modify/${props.cookies.adf.id}`, userToUpdate, {
+                    headers: { Authorization: "Bearer " + props.cookies.adf.token },
+                });
+                setUserToUpdate(response.data);
+                alert("Utilisateur mis a jour avec succès !")
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+
     async function getUser() {
         try {
             if (props.cookies && props.cookies.adf) {
@@ -182,7 +217,70 @@ export default function User(props) {
 
                         </div>
                         <div className={`tab-pane fade show ${activeTab === 'modifier' ? 'active' : ''}`} id="pills-modifier" role="tabpanel" aria-labelledby="tab-modifier">
-                            <button type="button" className="btn btn-danger" onClick={() => handleClick()}>Supprimer compte</button>
+                        <div className="modify-form">
+                                <form onSubmit={handleSubmitUpdate} method="PUT">
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="text"
+                                        id="editName"
+                                        className="form-control"
+                                        placeholder="Nom"
+                                        value={userToUpdate.name}
+                                        onChange={(e) => handleTextChange(e, "name")}
+                                        />
+                                    </div>
+
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="text"
+                                        id="editFirstname"
+                                        className="form-control"
+                                        placeholder="Prénom"
+                                        value={userToUpdate.firstname}
+                                        onChange={(e) => handleTextChange(e, "firstname")}
+                                        />
+                                    </div>
+
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="email"
+                                        id="editEmail"
+                                        className="form-control"
+                                        placeholder="Email"
+                                        value={userToUpdate.mail}
+                                        onChange={(e) => handleTextChange(e, "mail")}
+                                        />
+                                    </div>
+
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="password"
+                                        id="editPassword"
+                                        className="form-control"
+                                        placeholder="Mot de passe"
+                                        value={userToUpdate.password}
+                                        onChange={(e) => handleTextChange(e, "password")}
+                                        />
+                                    </div>
+
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="tel"
+                                        id="editPhone"
+                                        className="form-control"
+                                        placeholder="Téléphone"
+                                        pattern="[0-9]{0,10}"
+                                        value={userToUpdate.tel}
+                                        onChange={(e) => handleTextChange(e, "tel")}
+                                        />
+                                    </div>
+
+                                    <button type="submit" className="btn btn-primary btn-block mb-3">
+                                        Modifier
+                                    </button>
+                                </form>
+                                <button type="button" className="btn btn-danger" onClick={() => handleClick()}>Supprimer compte</button>
+                            </div>
                         </div>
                     </div></>
 
@@ -227,7 +325,6 @@ export default function User(props) {
                                                 <div className="rdv-items"><b>Nom : </b> &nbsp;&nbsp;{rdvItem.user_name}</div>
                                                 <div className="rdv-items"><b>Prénom : </b> &nbsp;&nbsp;{rdvItem.user_firstname}</div>
                                                 <div className="rdv-items"><b>Téléphone : </b> &nbsp;&nbsp;{rdvItem.user_tel}</div>
-                                                <div className="rdv-items"><b>Mail : </b> &nbsp;&nbsp;{rdvItem.appointment_id}</div>
                                                 <div className="rdv-items"><b>Mail : </b> &nbsp;&nbsp;{rdvItem.user_mail}</div>
                                                 <div className="rdv-items"><b>heure_début : </b> &nbsp;&nbsp;{rdvItem.start_hour}</div>
                                                 <div className="rdv-items"><b>heure_fin : </b> &nbsp;&nbsp;{rdvItem.end_hour}</div>
@@ -242,7 +339,70 @@ export default function User(props) {
 
                         </div>
                         <div className={`tab-pane fade show ${activeTab === 'modifier' ? 'active' : ''}`} id="pills-modifier" role="tabpanel" aria-labelledby="tab-modifier">
-                            <button type="button" className="btn btn-danger" onClick={() => handleClick()}>Supprimer compte</button>
+                            <div className="modify-form">
+                                <form onSubmit={handleSubmitUpdate} method="PUT">
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="text"
+                                        id="editName"
+                                        className="form-control"
+                                        placeholder="Nom"
+                                        value={userToUpdate.name}
+                                        onChange={(e) => handleTextChange(e, "name")}
+                                        />
+                                    </div>
+
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="text"
+                                        id="editFirstname"
+                                        className="form-control"
+                                        placeholder="Prénom"
+                                        value={userToUpdate.firstname}
+                                        onChange={(e) => handleTextChange(e, "firstname")}
+                                        />
+                                    </div>
+
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="email"
+                                        id="editEmail"
+                                        className="form-control"
+                                        placeholder="Email"
+                                        value={userToUpdate.mail}
+                                        onChange={(e) => handleTextChange(e, "mail")}
+                                        />
+                                    </div>
+
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="password"
+                                        id="editPassword"
+                                        className="form-control"
+                                        placeholder="Mot de passe"
+                                        value={userToUpdate.password}
+                                        onChange={(e) => handleTextChange(e, "password")}
+                                        />
+                                    </div>
+
+                                    <div className="form-outline mb-4">
+                                        <input
+                                        type="tel"
+                                        id="editPhone"
+                                        className="form-control"
+                                        placeholder="Téléphone"
+                                        pattern="[0-9]{0,10}"
+                                        value={userToUpdate.tel}
+                                        onChange={(e) => handleTextChange(e, "tel")}
+                                        />
+                                    </div>
+
+                                    <button type="submit" className="btn btn-primary btn-block mb-3">
+                                        Modifier
+                                    </button>
+                                </form>
+                                <button type="button" className="btn btn-danger" onClick={() => handleClick()}>Supprimer compte</button>
+                            </div>
                         </div>
 
                         <div className={`tab-pane fade show ${activeTab === 'creneaux' ? 'active' : ''}`} id="pills-creneaux" role="tabpanel" aria-labelledby="tab-creneaux">
