@@ -87,25 +87,29 @@ const handleBenefitChange = (e) => {
     setSelectedDisponibilityID(e.target.value);
   };
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-
-  const data = {
-    userId: props.cookies.adf.id,
-    garageId: selectedGarageId,
-    benefits_id: benefit,
-    disponibility_id: selectedDisponibilityID
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    const data = {
+      user_id: props.cookies.adf.id,
+      garage_id: selectedGarageId,
+      benefits_id: benefit,
+      disponibility_id: selectedDisponibilityID,
+    };
+  
+    try {
+      const response = await axios.post("http://localhost:8000/appointment", data);
+      if (response.status === 201) {
+        alert("Appointment created successfully!");
+      } else {
+        throw new Error("Failed to create appointment.");
+      }
+    } catch (error) {
+      alert(`Error creating appointment: ${error.message}`);
+    }
   };
-
-console.log(data)
-  axios.post('/appointment', data)
-    .then((response) => {
-      alert('Appointment created successfully!');
-    })
-    .catch((error) => {
-      alert('Failed to create appointment.');
-    });
-};
+  
+  
 
   return (
     <div>
@@ -137,7 +141,7 @@ console.log(data)
               <div className="row">
                 {disponibilities.map((disponibility) => (
                   <>
-                    <div>
+                    <div onChange={handleOptionChange}>
                       <label key={disponibility.disponibility_id} for="dispo" className="mr-2">
                         {disponibility.disponibility_date +
                           " " +
@@ -145,7 +149,7 @@ console.log(data)
                           " - " +
                           disponibility.end_hour}
                       </label>
-                      <input onChange={handleOptionChange}
+                      <input
                         key={disponibility.disponibility_id}
                         type="radio"
                         name="dispo"
