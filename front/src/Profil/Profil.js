@@ -72,10 +72,42 @@ export default function User(props) {
 
         }
     }
+
+    async function getDispo() {
+        try {
+          if (props.cookies && props.cookies.adf) {
+            const response = await axios.request({
+              url: `http://localhost:8000/profile/disponibilities/${props.cookies.adf.id}`,
+              headers: { Authorization: "Bearer " + props.cookies.adf.token },
+            });
+            setRdv(response.data);
+          }
+        } catch (error) {
+          console.log("error", error);
+        }
+    }
+
+    async function handleDeleteDispo(disponibilityId) {
+        try {
+          if (props.cookies && props.cookies.adf) {
+            const response = await axios.request({
+              url: `http://localhost:8000/profile/disponibilities/delete/${disponibilityId}`,
+              headers: { Authorization: "Bearer " + props.cookies.adf.token },
+              method: "DELETE",
+            });
+            console.log(response.data);
+            getDispo();
+          }
+        } catch (error) {
+          console.log("error", error);
+        }
+      }
+
     useEffect(() => {
         (async () => {
             await getUser();
             await getRdv();
+            await getDispo();
         })();
     }, []);
 
@@ -194,7 +226,29 @@ export default function User(props) {
                             <button type="button" className="btn btn-danger" onClick={() => handleClick()}>Supprimer compte</button>
                         </div>
                         <div className={`tab-pane fade show ${activeTab === 'creneaux' ? 'active' : ''}`} id="pills-profil" role="tabpanel" aria-labelledby="tab-creneaux">
-                            
+                        <div>
+                            <h1>Créneaux du garage</h1>
+                            <table style={{ margin: "0 auto", border: "1px solid black", borderCollapse: "collapse", marginTop: "20px", marginBottom: "50px"}}>
+                                <thead>
+                                    <tr>
+                                    <th>Date</th>
+                                    <th>Début</th>
+                                    <th>Fin</th>
+                                    <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {rdv.map((item) => (
+                                    <tr key={item.disponibility_id}>
+                                        <td>{item.disponibility_date}</td>
+                                        <td>{item.start_hour}</td>
+                                        <td>{item.end_hour}</td>
+                                        <td><button class="btn btn-danger btn-sm" onClick={() => handleDeleteDispo(item.disponibility_id)}>Supprimer</button></td>
+                                    </tr>
+                                    ))}
+                                </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div></>
 
