@@ -15,9 +15,13 @@ import SliderFunction from './slider/slider';
 import GarageReservation from './footer/condition';
 import PrivacyPolicy from './footer/confidentialite';
 import ContactUs from './footer/contact';
+import { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
+
 
 function Navigation(props) {
   const navigate = useNavigate();
+
   function handleLogout() {
     props.removeCookie("adf");
 
@@ -93,6 +97,16 @@ function Footer() {
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["adf"]);
+  const location = useLocation();
+
+  useEffect(() => {
+    const accueil = location.pathname;
+    if(accueil == "/"){
+      window.location = "http://localhost:3000/accueil";
+    }
+    const title = location.pathname.substring(1);
+    document.title = `ADF - ${title}`;
+  }, [location]);
   return (
     <div>
       <Helmet>
@@ -109,16 +123,20 @@ function App() {
         <div>
 
         <Navigation cookies={cookies} removeCookie={removeCookie} />
+
         <Routes>
-        <Route exact={true} path='/calendrier' element={<MyCalendar cookies={cookies}/>}/>
-        <Route exact={true} path='/listegarages' element={<Garage/>}/>
-        <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
-        <Route path="/accueil" element={<SliderFunction/>} />
-        <Route path="/condition" element={<GarageReservation/>}/>
-        <Route path="/politique" element={<PrivacyPolicy/>}/>
-        <Route path="/contact" element={<ContactUs/>}/>
-        <Route path="profil/:id" element={<User cookies={cookies} removeCookie={removeCookie} />} />
-        </Routes>
+          <Route exact path="/accueil" element={<SliderFunction/>} />
+          <Route exact path='/calendrier' element={<MyCalendar cookies={cookies} onClick/>}/>
+          <Route exact path='/listegarages' element={<Garage/>} />
+          <Route path="/connexion" element={<Authentification setCookie={setCookie} />} />
+          <Route path="/condition" element={<GarageReservation/>}/>
+          <Route path="/politique" element={<PrivacyPolicy/>}/>
+          <Route path="/contact" element={<ContactUs/>}/>
+          <Route path="profil/:id" element={<User cookies={cookies} removeCookie={removeCookie} />} />
+
+      </Routes>
+
+
         <Footer/>
 
         </div>
@@ -131,6 +149,7 @@ function App() {
 
      
   );
+
 }
 
 export default App;

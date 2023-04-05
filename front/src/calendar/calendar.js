@@ -133,6 +133,7 @@ function MyCalendar(props) {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
+                    <label>Trouver un prestataire</label>
                       <input
                         type="text"
                         placeholder="Recherche"
@@ -143,8 +144,10 @@ function MyCalendar(props) {
                     </div>
                   </div>
                 </div>
+                
                 <div className="row">
                   <div className="col-md-6">
+                  <label>Choisir un garage</label>
                     <Select
                       options={filteredOptions}
                       value={selectedGarage}
@@ -156,6 +159,7 @@ function MyCalendar(props) {
                 </div>
               </div>
               <div>
+              <label>Type de prestation :</label><br/>
                 <select onChange={handleBenefitChange}>
 
                   {benefits.map((benefit) => (
@@ -167,7 +171,8 @@ function MyCalendar(props) {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div><br/>
+              <label>Choix du créneau :</label>
               <div className="row">
                 {disponibilities.map((disponibility) => (
                   <>
