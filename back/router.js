@@ -140,7 +140,7 @@ routes.get("/benefits/:id", (req, res) => {
 
 routes.get("/disponibilities/:id", (req, res) => {
   const { id } = req.params;
-  db.all(`SELECT * FROM disponibilities WHERE garage_id = ?`, [id], (err, rows) => {
+  db.all(`SELECT * FROM disponibilities WHERE garage_id = ? AND available = 1`, [id], (err, rows) => {
     if (err) {
       res.status(500).send({ error: "Oups!" });
       console.error(err.stack);
@@ -243,6 +243,25 @@ routes.post("/appointment", (req, res) => {
       $garage_id: req.body.garage_id,
       $disponibility_id: req.body.disponibility_id,
       $benefits_id: req.body.benefits_id,
+    },
+    (err, row) => {
+      if (err) {
+        console.log('body', req.body);
+        console.log('err', err);
+        return res.json(err).status(401);
+      }
+      return res.sendStatus(201);
+    }
+  );
+});
+
+routes.patch("/disponibilities/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.run(
+    "UPDATE disponibilities SET available=0 WHERE disponibility_id = $disponibility_id",
+    {
+      $disponibility_id: id
     },
     (err, row) => {
       if (err) {

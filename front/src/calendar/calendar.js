@@ -104,12 +104,18 @@ function MyCalendar(props) {
     };
 
     try {
-      const response = await axios.post("http://localhost:8000/appointment", data);
-      if (response.status === 201) {
+      const response = await axios.post(
+        "http://localhost:8000/appointment",
+        data
+      );
+      const responsePatch = await axios.patch(`http://localhost:8000/disponibilities/${selectedDisponibilityID}`, data);
+      if (response.status === 201 && responsePatch.status === 201) {
         alert("Appointment created successfully!");
       } else {
         throw new Error("Failed to create appointment.");
       }
+      
+
     } catch (error) {
       alert(`Error creating appointment: ${error.message}`);
     }
