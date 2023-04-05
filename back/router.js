@@ -140,7 +140,7 @@ routes.get("/benefits/:id", (req, res) => {
 
 routes.get("/disponibilities/:id", (req, res) => {
   const { id } = req.params;
-  db.all(`SELECT * FROM disponibilities WHERE garage_id = ?`, [id], (err, rows) => {
+  db.all(`SELECT * FROM disponibilities WHERE garage_id = ? AND available = 1`, [id], (err, rows) => {
     if (err) {
       res.status(500).send({ error: "Oups!" });
       console.error(err.stack);
@@ -255,6 +255,25 @@ routes.post("/appointment", (req, res) => {
   );
 });
 
+routes.patch("/disponibilities/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.run(
+    "UPDATE disponibilities SET available=0 WHERE disponibility_id = $disponibility_id",
+    {
+      $disponibility_id: id
+    },
+    (err, row) => {
+      if (err) {
+        console.log('body', req.body);
+        console.log('err', err);
+        return res.json(err).status(401);
+      }
+      return res.sendStatus(201);
+    }
+  );
+});
+
 routes.post("/disponibilities", (req, res) => {
   db.run(
     " INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour) VALUES ($garage_id, $date, $start_hour, $end_hour)",
@@ -271,6 +290,39 @@ routes.post("/disponibilities", (req, res) => {
         return res.json(err).status(401);
       }
       return res.sendStatus(201);
+    }
+  );
+});
+
+routes.get("/profile/disponibilities/:id", (req, res) => {
+  const { id } = req.params;
+  db.all(`SELECT disponibility_id, disponibility_date, start_hour, end_hour 
+          FROM disponibilities 
+          join garages on garages.garage_id = disponibilities.garage_id  
+          join users on users.user_id = garages.user_id 
+          where garages.garage_id = ?
+          order by disponibility_date asc;`, [id], (err, rows) => {
+    if (err) {
+      res.status(500).send({ error: "Oups!" });
+      console.error(err.stack);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+routes.delete("/profile/disponibilities/delete/:id", (req, res) => {
+  const { id } = req.params;
+  db.run(
+    `DELETE FROM disponibilities WHERE disponibility_id = ?`,
+    [id],
+    (err) => {
+      if (err) {
+        res.status(500).send({ error: "Oups!" });
+        console.error(err.stack);
+      } else {
+        res.send({ message: "Disponibilité supprimée avec succès." });
+      }
     }
   );
 });

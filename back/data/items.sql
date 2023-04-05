@@ -23,7 +23,9 @@ CREATE TABLE garages (
     garage_zipcode varchar not null,
     garage_city varchar not null,
     garage_opening TIME not null,
-    garage_closing TIME not null
+    garage_closing TIME not null,
+    user_id INTEGER not null,
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE benefits (
@@ -60,11 +62,14 @@ CREATE TABLE appointment (
 INSERT INTO users (user_role, user_name, user_firstname, user_mail, user_password, user_tel)
 VALUES (1, 'Doe', 'John', 'john.doe@example.com', 'password123', '0123456789');
 
-INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city, garage_opening, garage_closing)
-VALUES ('Garage Tropicana', 1, 0, '10 Rue du jus frais', '75009', 'Paris', '08:00', '19:00');
+INSERT INTO users (user_role, user_name, user_firstname, user_mail, user_password, user_tel)
+VALUES (1,'Mouton','William','wiwi@wiwi.com','$2b$10$E8yk1NLZ90kn9Cb4TSHlFOvVj7QdZb/kMXAQlXm2LOnxDsAPkXJ7O','0662003580');
 
-INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city, garage_opening, garage_closing)
-VALUES ('Garage Joker', 1, 0, '5 Rue du jus bien bien frais', '59000', 'Lille', '09:00', '20:00');
+INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city, garage_opening, garage_closing, user_id)
+VALUES ('Garage Tropicana', 1, 0, '10 Rue du jus frais', '75009', 'Paris', '08:00', '19:00',1);
+
+INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city, garage_opening, garage_closing,user_id)
+VALUES ('Garage Joker', 1, 0, '5 Rue du jus bien bien frais', '59000', 'Lille', '09:00', '20:00',2);
 
 INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
 VALUES ('Vidange', 'Mecanique', '01:00:00', 1);
