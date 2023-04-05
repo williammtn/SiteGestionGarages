@@ -53,6 +53,26 @@ export default function User(props) {
 
         }
     }
+    async function handleSuppRdv(i) {
+        try {
+            const response = await axios.delete(`http://localhost:8000/appointment_delete/${i}`, {
+                headers: {Authorization: "Bearer " + props.cookies.adf.token},
+            });
+            if(response.data.success === true){
+               alert("erreur");
+            }
+            else{
+                alert("le rendez-vous a bien été supprimé");
+                const maDiv = document.getElementById(i);
+                maDiv.style.display = 'none';
+                navigate(`/profil/${props.cookies.adf.id}#profil`);
+            }               
+
+        } catch (e) {
+            console.error("ERR", e);
+
+        }
+    }
     useEffect(() => {
         (async () => {
             await getUser();
@@ -97,7 +117,7 @@ export default function User(props) {
                 
             <ul>
                 {rdv.map((rdvItem) => (
-                <li key={rdvItem.id} className="liste-rdv">
+                <li key={rdvItem.id} id= {rdvItem.appointment_id} className="liste-rdv">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Rendez-vous du {rdvItem.disponibility_date}</h5>
@@ -105,6 +125,7 @@ export default function User(props) {
                         <div className="rdv-items"><b>garage : </b> &nbsp;&nbsp;{rdvItem.garage_name}</div>
                         <div className="rdv-items"><b>heure_début : </b> &nbsp;&nbsp;{rdvItem.start_hour}</div>
                         <div className="rdv-items"><b>heure_fin : </b> &nbsp;&nbsp;{rdvItem.end_hour}</div>
+                        <div className="rdv-items"><button type="button" className="btn btn-danger" onClick={() => handleSuppRdv(rdvItem.appointment_id)}>supprimer le RDV</button></div>
                     </div>
                 </div>
                 </li>
