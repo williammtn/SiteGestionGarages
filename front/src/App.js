@@ -12,6 +12,9 @@ import {useCookies} from "react-cookie";
 import User from './Profil/Profil';
 import Garage from './Garages/Garages';
 import SliderFunction from './slider/slider';
+import GarageReservation from './footer/condition';
+import PrivacyPolicy from './footer/confidentialite';
+import ContactUs from './footer/contact';
 
 function Navigation(props) {
   const navigate = useNavigate();
@@ -75,9 +78,9 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-items">
             <ul className="list-inline">
-              <li className="list-inline-item"><a href="#">Conditions d'utilisation</a></li>
-              <li className="list-inline-item"><a href="#">Politique de confidentialité</a></li>
-              <li className="list-inline-item"><a href="#">Contactez-nous</a></li>
+              <Link to="/condition" className="nav-link">Conditions d'utilisation</Link>
+              <Link to="/politique" className="nav-link">Politiques de Confidentialité</Link>
+              <Link to="/contact" className="nav-link">Contactez-nous</Link>
             </ul>
         </div>
           <div className="footer-copyright">
@@ -111,6 +114,9 @@ function App() {
         <Route exact={true} path='/listegarages' element={<Garage/>}/>
         <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
         <Route path="/accueil" element={<SliderFunction/>} />
+        <Route path="/condition" element={<GarageReservation/>}/>
+        <Route path="/politique" element={<PrivacyPolicy/>}/>
+        <Route path="/contact" element={<ContactUs/>}/>
         <Route path="profil/:id" element={<User cookies={cookies} removeCookie={removeCookie} />} />
         </Routes>
         <Footer/>
