@@ -151,6 +151,7 @@ function MyCalendar(props) {
               <div>
               <label>Type de prestation :</label><br/>
                 <select onChange={handleBenefitChange}>
+                <option value="">Choisir une préstation</option>
                   {benefits.map((benefit) => (
                     <option
                       key={benefit.benefits_id}
