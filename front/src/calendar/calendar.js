@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "axios";
-import Select from 'react-select';
+import Select from "react-select";
 import "../App.css";
 import { NamedTimeZoneImpl } from "@fullcalendar/core/internal";
-
 
 function MyCalendar(props) {
   const [events, setEvents] = useState([]);
@@ -33,11 +32,9 @@ function MyCalendar(props) {
       });
   }, []);
 
-
-
   useEffect(() => {
     axios
-      .get('http://localhost:8000/garages')
+      .get("http://localhost:8000/garages")
       .then((response) => {
         const garageToSelect = response.data.map((garage) => ({
           value: garage.garage_id,
@@ -56,12 +53,11 @@ function MyCalendar(props) {
   );
   const handleGarageChange = (selectedOption) => {
     setSelectedGarageId(selectedOption.value);
-  
+
     axios
       .get(`http://localhost:8000/benefits/${selectedOption.value}`)
       .then((response) => {
         setBenefits(response.data);
-
       })
       .catch((error) => {
         console.error(error);
@@ -79,15 +75,10 @@ function MyCalendar(props) {
   const [benefit, setBenefit] = useState("");
   const [selectedDisponibilityID, setSelectedDisponibilityID] = useState("");
 
-
-
-
   const handleBenefitChange = (e) => {
     const selectedBenefit = benefits[e.target.selectedIndex];
     setBenefit(selectedBenefit.benefits_id);
-  }
-
-
+  };
 
   const handleOptionChange = (e) => {
     setSelectedDisponibilityID(e.target.value);
@@ -108,20 +99,19 @@ function MyCalendar(props) {
         "http://localhost:8000/appointment",
         data
       );
-      const responsePatch = await axios.patch(`http://localhost:8000/disponibilities/${selectedDisponibilityID}`, data);
+      const responsePatch = await axios.patch(
+        `http://localhost:8000/disponibilities/${selectedDisponibilityID}`,
+        data
+      );
       if (response.status === 201 && responsePatch.status === 201) {
         alert("Appointment created successfully!");
       } else {
         throw new Error("Failed to create appointment.");
       }
-      
-
     } catch (error) {
       alert(`Error creating appointment: ${error.message}`);
     }
   };
-
-
 
   return (
     <div>
@@ -161,7 +151,6 @@ function MyCalendar(props) {
               <div>
               <label>Type de prestation :</label><br/>
                 <select onChange={handleBenefitChange}>
-
                   {benefits.map((benefit) => (
                     <option
                       key={benefit.benefits_id}
@@ -174,10 +163,14 @@ function MyCalendar(props) {
               </div><br/>
               <label>Choix du créneau :</label>
               <div className="row">
-                {disponibilities.map((disponibility) => (
+                {disponibilities.map((disponibility) => {
                   <>
                     <div onChange={handleOptionChange}>
-                      <label key={disponibility.disponibility_id} for="dispo" className="mr-2">
+                      <label
+                        key={disponibility.disponibility_id}
+                        for="dispo"
+                        className="mr-2"
+                      >
                         {disponibility.disponibility_date +
                           " " +
                           disponibility.start_hour +
@@ -192,11 +185,14 @@ function MyCalendar(props) {
                         value={disponibility.disponibility_id}
                       />
                     </div>
-                  </>
-                ))}
+                  </>;
+                })}
               </div>
               <div>
-                <button type="submit" class="btn btn-primary btn-block mb-4 col-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-block mb-4 col-3"
+                >
                   Valider
                 </button>
               </div>

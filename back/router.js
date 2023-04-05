@@ -73,6 +73,17 @@ routes.get("/users", (req, res) => {
   });
 });
 
+routes.get("/user", (req, res) => {
+  db.all("SELECT * FROM users u WHERE user_id NOT IN (SELECT user_id FROM garages)", (err, rows) => {
+    if (err) {
+      res.status(500).send({ error: "Oups!" });
+      console.error(err.stack);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 routes.get("/profil/:id", auth.authenticate(),(req, res) => {
   db.get("SELECT * FROM users where user_id= ?", req.params.id, (err, rows) => {
     if (err) {
@@ -225,7 +236,7 @@ routes.post("/benefits", (req, res) => {
 
 routes.post("/garages", (req, res) => {
   db.run(
-    " INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city,garage_opening, garage_closing)values($name, $mechanics, $body, $address, $zipcode, $city, $garage_opening,$garage_closing)",
+    " INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city,garage_opening, garage_closing, user_id)values($name, $mechanics, $body, $address, $zipcode, $city, $garage_opening,$garage_closing, $user_id)",
     {
       $name: req.body.name,
       $mechanics: req.body.mechanics,
@@ -235,6 +246,7 @@ routes.post("/garages", (req, res) => {
       $city: req.body.city,
       $garage_opening: req.body.garage_opening,
       $garage_closing: req.body.garage_closing,
+      $user_id: req.body.user_id
     },
     (err, row) => {
       if (err) {

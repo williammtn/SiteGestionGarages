@@ -125,18 +125,15 @@ function App() {
         <Navigation cookies={cookies} removeCookie={removeCookie} />
 
         <Routes>
-          <Route exact path="/accueil" element={<SliderFunction/>} />
-          <Route exact path='/calendrier' element={<MyCalendar cookies={cookies} onClick/>}/>
-          <Route exact path='/listegarages' element={<Garage/>} />
-          <Route path="/connexion" element={<Authentification setCookie={setCookie} />} />
-          <Route path="/condition" element={<GarageReservation/>}/>
-          <Route path="/politique" element={<PrivacyPolicy/>}/>
-          <Route path="/contact" element={<ContactUs/>}/>
-          <Route path="profil/:id" element={<User cookies={cookies} removeCookie={removeCookie} />} />
-
-      </Routes>
-
-
+        <Route exact={true} path='/calendrier' element={<MyCalendar cookies={cookies}/>}/>
+        <Route exact={true} path='/listegarages' element={<Garage cookies={cookies}/>}/>
+        <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
+        <Route path="/accueil" element={<SliderFunction/>} />
+        <Route path="/condition" element={<GarageReservation/>}/>
+        <Route path="/politique" element={<PrivacyPolicy/>}/>
+        <Route path="/contact" element={<ContactUs/>}/>
+        <Route path="profil/:id" element={<User cookies={cookies} removeCookie={removeCookie} />} />
+        </Routes>
         <Footer/>
 
         </div>
