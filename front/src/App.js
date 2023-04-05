@@ -111,8 +111,7 @@ function App() {
         <Route exact={true} path='/listegarages' element={<Garage/>}/>
         <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
         <Route path="/accueil" element={<SliderFunction/>} />
-        {/* <Route path="/accueil" element /> */}
-        <Route path="profil/:id" element={<User cookies={cookies} />} />
+        <Route path="profil/:id" element={<User cookies={cookies} removeCookie={removeCookie} />} />
         </Routes>
         <Footer/>
 
