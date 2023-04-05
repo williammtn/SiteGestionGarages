@@ -73,6 +73,17 @@ routes.get("/users", (req, res) => {
   });
 });
 
+routes.get("/user", (req, res) => {
+  db.all("SELECT * FROM users u WHERE user_id NOT IN (SELECT user_id FROM garages)", (err, rows) => {
+    if (err) {
+      res.status(500).send({ error: "Oups!" });
+      console.error(err.stack);
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 routes.get("/profil/:id", auth.authenticate(),(req, res) => {
   db.get("SELECT * FROM users where user_id= ?", req.params.id, (err, rows) => {
     if (err) {
@@ -190,6 +201,18 @@ routes.delete("/appointment_delete/:id", (req, res) => {
   );
 });
 
+routes.get("/appointment_liste/:id", (req, res) => {
+  db.all("SELECT appointment_id, users.user_name, users.user_firstname, users.user_mail, users.user_tel, disponibilities.disponibility_date, disponibilities.start_hour, disponibilities.end_hour FROM disponibilities JOIN garages ON garages.garage_id = disponibilities.garage_id JOIN users ON users.user_id = garages.user_id JOIN appointment ON appointment.garage_id = garages.garage_id WHERE garages.garage_id = ? AND appointment.appointment_id = appointment_id ", req.params.id,
+    (err, rows) => {
+      if (err) {
+        res.status(500).send({ error: "Oups!" });
+        console.error(err.stack);
+      } else {
+        res.json(rows);
+      }
+    }
+  );
+});
 
 routes.post("/benefits", (req, res) => {
   db.run(
@@ -213,7 +236,7 @@ routes.post("/benefits", (req, res) => {
 
 routes.post("/garages", (req, res) => {
   db.run(
-    " INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city,garage_opening, garage_closing)values($name, $mechanics, $body, $address, $zipcode, $city, $garage_opening,$garage_closing)",
+    " INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city,garage_opening, garage_closing, user_id)values($name, $mechanics, $body, $address, $zipcode, $city, $garage_opening,$garage_closing, $user_id)",
     {
       $name: req.body.name,
       $mechanics: req.body.mechanics,
@@ -223,6 +246,7 @@ routes.post("/garages", (req, res) => {
       $city: req.body.city,
       $garage_opening: req.body.garage_opening,
       $garage_closing: req.body.garage_closing,
+      $user_id: req.body.user_id
     },
     (err, row) => {
       if (err) {
@@ -325,4 +349,26 @@ routes.delete("/profile/disponibilities/delete/:id", (req, res) => {
       }
     }
   );
+});
+
+routes.put("/users/modify/:id", (req, res) => {
+  const { id } = req.params;
+  bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+    if (err) {
+      return res.status(500).send({ error: "Erreur lors du hashage du mot de passe" });
+    }
+    const { name, firstname, mail, tel } = req.body;
+    db.run(
+      `UPDATE users SET user_name = ?, user_firstname = ?, user_mail = ?, user_password = ?, user_tel = ? WHERE user_id = ?`,
+      [name, firstname, mail, hash, tel, id],
+      (err) => {
+        if (err) {
+          console.error(err.stack);
+          return res.status(500).send({ error: "Erreur lors de la mise à jour de l'utilisateur" });
+        } else {
+          return res.status(200).send({ message: "Utilisateur mis à jour avec succès" });
+        }
+      }
+    );
+  });
 });
