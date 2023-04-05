@@ -22,7 +22,7 @@ routes.post("/signup", (req, res) => {
     db.get(
       " insert into users ( user_role, user_name, user_firstname , user_password, user_mail, user_tel )values($role,$name, $firstname,$password, $mail, $tel) returning user_id",
       {
-        $role: req.body.role,
+        $role: 0,
         $name: req.body.name,
         $firstname: req.body.firstname,
         $password: hash,
