@@ -136,6 +136,7 @@ body{
   width: 100vw;
   height:14vh;
   display: block;
+  bottom: 0;
 }
 .footer-text{
   color: #f8f8f8 !important;
@@ -183,4 +184,20 @@ body{
   margin-top: 0.7vh;
   margin-left: 0.4vw;
   margin-bottom: 0.4vh;
+}
+
+#pills-profil{
+  margin-bottom: 43vh;
+}
+
+#pills-modifier{
+  margin-bottom: 60vh;
+}
+
+#pills-RDV{
+  margin-bottom: 22vh;
+}
+
+#pills-creneaux{
+  margin-bottom: 46vh;
 }

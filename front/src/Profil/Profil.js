@@ -244,7 +244,7 @@ export default function User(props) {
                             <button type="button" className="btn btn-danger" onClick={() => handleClick()}>Supprimer compte</button>
                         </div>
 
-                        <div className={`tab-pane fade show ${activeTab === 'creneaux' ? 'active' : ''}`} id="pills-profil" role="tabpanel" aria-labelledby="tab-creneaux">
+                        <div className={`tab-pane fade show ${activeTab === 'creneaux' ? 'active' : ''}`} id="pills-creneaux" role="tabpanel" aria-labelledby="tab-creneaux">
                     <div>
                             <h1>Créneaux du garage</h1>
                             <table style={{ margin: "0 auto", border: "1px solid black", borderCollapse: "collapse", marginTop: "20px", marginBottom: "50px"}}>
