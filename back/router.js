@@ -125,6 +125,7 @@ routes.get("/benefits", (req, res) => {
   });
 });
 
+//récupère les prestation liée à un garage
 routes.get("/benefits/:id", (req, res) => {
   const { id } = req.params;
   db.all(`SELECT * FROM benefits WHERE garage_id = ?`, [id], (err, rows) => {
@@ -137,10 +138,21 @@ routes.get("/benefits/:id", (req, res) => {
   });
 });
 
+routes.get("/disponibilities/:id", (req, res) => {
+  const { id } = req.params;
+  db.all(`SELECT * FROM disponibilities WHERE garage_id = ?`, [id], (err, rows) => {
+    if (err) {
+      res.status(500).send({ error: "Oups!" });
+      console.error(err.stack);
+    } else {
+      res.json(rows);
+    }
+  });
+});
 
 routes.get("/appointment", (req, res) => {
   db.all(
-    "SELECT appointment_id, user_name, user_firstname, user_tel, garage_name, garage_city FROM appointment LEFT JOIN users USING(user_id) LEFT JOIN garages USING(garage_id)",
+    "SELECT appointment_id, user_name, user_firstname, user_tel, garage_name, garage_city FROM appointment LEFT JOIN users USING(user_id) LEFT JOIN garages USING(garage_id) LEFT JOIN benefits",
     (err, rows) => {
       if (err) {
         res.status(500).send({ error: "Oups!" });
@@ -174,7 +186,7 @@ routes.post("/benefits", (req, res) => {
 
 routes.post("/garages", (req, res) => {
   db.run(
-    " INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city)values($name, $mechanics, $body, $address, $zipcode, $city)",
+    " INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city,garage_opening, garage_closing)values($name, $mechanics, $body, $address, $zipcode, $city, $garage_opening,$garage_closing)",
     {
       $name: req.body.name,
       $mechanics: req.body.mechanics,
@@ -182,6 +194,8 @@ routes.post("/garages", (req, res) => {
       $address: req.body.address,
       $zipcode: req.body.zipcode,
       $city: req.body.city,
+      $garage_opening: req.body.garage_opening,
+      $garage_closing: req.body.garage_closing,
     },
     (err, row) => {
       if (err) {
@@ -196,13 +210,32 @@ routes.post("/garages", (req, res) => {
 
 routes.post("/appointment", (req, res) => {
   db.run(
-    " INSERT INTO appointment (appointment_date, appointment_name, appointment_duration, user_id, garage_id)values($date, $name, $duration, $user_id, $garage_id)",
+    " INSERT INTO appointment (user_id, garage_id, disponibility_id, benefits_id)values($user_id, $garage_id, $disponibility_id, $benefits_id)",
     {
-      $date: req.body.date,
-      $name: req.body.name,
-      $duration: req.body.duration,
       $user_id: req.body.user_id,
       $garage_id: req.body.garage_id,
+      $disponibility_id: req.body.disponibility_id,
+      $benefits_id: req.body.benefits_id,
+    },
+    (err, row) => {
+      if (err) {
+        console.log('body', req.body);
+        console.log('err', err);
+        return res.json(err).status(401);
+      }
+      return res.sendStatus(201);
+    }
+  );
+});
+
+routes.post("/disponibilities", (req, res) => {
+  db.run(
+    " INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour) VALUES ($garage_id, $date, $start_hour, $end_hour)",
+    {
+      $garage_id: req.body.garage_id,
+      $date: req.body.date,
+      $start_hour: req.body.start_hour,
+      $end_hour: req.body.end_hour,
     },
     (err, row) => {
       if (err) {
