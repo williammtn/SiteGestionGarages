@@ -53,7 +53,7 @@ function MyCalendar(props) {
   );
   const handleGarageChange = (selectedOption) => {
     setSelectedGarageId(selectedOption.value);
-
+    setDisponibilities([]);
     axios
       .get(`http://localhost:8000/benefits/${selectedOption.value}`)
       .then((response) => {
