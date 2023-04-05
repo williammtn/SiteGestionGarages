@@ -164,6 +164,19 @@ routes.get("/appointment", (req, res) => {
   );
 });
 
+routes.get("/appointment/:id", (req, res) => {
+  db.all("SELECT appointment_id, user_name, user_firstname, user_tel, garage_name, garage_city, benefits_name, benefits_type, disponibility_date, start_hour, end_hour FROM appointment LEFT JOIN users USING(user_id) LEFT JOIN garages USING(garage_id) LEFT JOIN benefits USING(benefits_id) LEFT JOIN disponibilities USING(disponibility_id) WHERE user_id=?", req.params.id,
+    (err, rows) => {
+      if (err) {
+        res.status(500).send({ error: "Oups!" });
+        console.error(err.stack);
+      } else {
+        res.json(rows);
+      }
+    }
+  );
+});
+
 routes.post("/benefits", (req, res) => {
   db.run(
     " INSERT INTO benefits ( benefits_name, benefits_type, benefits_duration, garage_id)values($name, $type,$duration, $garage_id)",

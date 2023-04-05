@@ -5,6 +5,7 @@ import {useCookies} from "react-cookie";
 
 export default function User(props) {
     const [user, setUser] = useState([]);
+    const [rdv, setRdv] = useState([]);
     const [activeTab,setActiveTab] = useState('profil');
     const navigate = useNavigate();
     async function getUser() {
@@ -15,6 +16,19 @@ export default function User(props) {
                     headers: {Authorization: "Bearer " + props.cookies.adf.token},
                 })
                 setUser(response.data);
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    }
+    async function getRdv() {
+        try {
+            if (props.cookies && props.cookies.adf) {
+                const response = await axios.request({
+                    url: `http://localhost:8000/appointment/${props.cookies.adf.id}`,
+                    headers: {Authorization: "Bearer " + props.cookies.adf.token},
+                })
+                setRdv(response.data);
             }
         } catch (error) {
             console.log("error", error);
@@ -42,6 +56,7 @@ export default function User(props) {
     useEffect(() => {
         (async () => {
             await getUser();
+            await getRdv();
         })();
     }, []);
 
@@ -78,7 +93,26 @@ export default function User(props) {
         </div>
 
         <div className={`tab-pane fade show ${activeTab === 'RDV' ? 'active' : ''}`} id="pills-RDV" role="tabpanel" aria-labelledby="tab-RDV">
-        
+            <div className="rdv">
+                
+            <ul>
+                {rdv.map((rdvItem) => (
+                <li key={rdvItem.id} className="liste-rdv">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Rendez-vous du {rdvItem.disponibility_date}</h5>
+                            
+                        <div className="rdv-items"><b>garage : </b> &nbsp;&nbsp;{rdvItem.garage_name}</div>
+                        <div className="rdv-items"><b>heure_début : </b> &nbsp;&nbsp;{rdvItem.start_hour}</div>
+                        <div className="rdv-items"><b>heure_fin : </b> &nbsp;&nbsp;{rdvItem.end_hour}</div>
+                    </div>
+                </div>
+                </li>
+            ))}
+            </ul>
+                
+            </div>
+           
         </div>
         <div className={`tab-pane fade show ${activeTab === 'modifier' ? 'active' : ''}`} id="pills-modifier" role="tabpanel" aria-labelledby="tab-modifier">
             <button type="button" className="btn btn-danger" onClick={() => handleClick()}>Supprimer compte</button>
