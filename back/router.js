@@ -338,3 +338,25 @@ routes.delete("/profile/disponibilities/delete/:id", (req, res) => {
     }
   );
 });
+
+routes.put("/users/modify/:id", (req, res) => {
+  const { id } = req.params;
+  bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+    if (err) {
+      return res.status(500).send({ error: "Erreur lors du hashage du mot de passe" });
+    }
+    const { name, firstname, mail, tel } = req.body;
+    db.run(
+      `UPDATE users SET user_name = ?, user_firstname = ?, user_mail = ?, user_password = ?, user_tel = ? WHERE user_id = ?`,
+      [name, firstname, mail, hash, tel, id],
+      (err) => {
+        if (err) {
+          console.error(err.stack);
+          return res.status(500).send({ error: "Erreur lors de la mise à jour de l'utilisateur" });
+        } else {
+          return res.status(200).send({ message: "Utilisateur mis à jour avec succès" });
+        }
+      }
+    );
+  });
+});
