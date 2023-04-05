@@ -13,7 +13,7 @@ function Garage() {
     }, []);
   
     return (
-        <div className='Garage_tab' style = {{paddingTop:'100px'}}>
+        <div className='Garage_tab' style = {{paddingTop:'100px', marginBottom: '43vh'}}>
             <Container className='mt-5'>
                 <h2>Liste des garages</h2>
                 <Row>
