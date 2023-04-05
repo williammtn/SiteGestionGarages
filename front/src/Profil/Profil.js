@@ -6,6 +6,7 @@ import {useCookies} from "react-cookie";
 export default function User(props) {
     const [user, setUser] = useState([]);
     const [rdv, setRdv] = useState([]);
+    const [rdvliste, setRdvListe] = useState([]);
     const [activeTab,setActiveTab] = useState('profil');
     const navigate = useNavigate();
     async function getUser() {
@@ -34,6 +35,19 @@ export default function User(props) {
             console.log("error", error);
         }
     }
+    async function getListeRdv() {
+        try {
+            if (props.cookies && props.cookies.adf) {
+                const response = await axios.request({
+                    url: `http://localhost:8000/appointment_liste/${props.cookies.adf.id}`,
+                    headers: {Authorization: "Bearer " + props.cookies.adf.token},
+                })
+                setRdvListe(response.data);
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    }
     async function handleClick() {
         try {
             const response = await axios.delete(`http://localhost:8000/delete/${props.cookies.adf.id}`, {
@@ -57,14 +71,14 @@ export default function User(props) {
             const response = await axios.delete(`http://localhost:8000/appointment_delete/${i}`, {
                 headers: {Authorization: "Bearer " + props.cookies.adf.token},
             });
-            if(response.data.success === true){
-               alert("erreur");
-            }
-            else{
+            if(response.data.success !== true){
                 alert("le rendez-vous a bien été supprimé");
                 const maDiv = document.getElementById(i);
                 maDiv.style.display = 'none';
                 navigate(`/profil/${props.cookies.adf.id}#profil`);
+            }
+            else{
+                alert("erreur");
             }               
 
         } catch (e) {
@@ -108,6 +122,7 @@ export default function User(props) {
             await getUser();
             await getRdv();
             await getDispo();
+            await getListeRdv();
         })();
     }, []);
 
@@ -185,7 +200,7 @@ export default function User(props) {
                             aria-controls="pills-modifier" aria-selected={activeTab === 'modifier'}>Modifier</a>
                     </li>
                     <li className="nav-item form-nav-item" role="presentation">
-                        <a className={`nav-link ${activeTab === 'liste créneaux' ? 'active' : 'form-nav-link'}`} id="tab-créneaux" href="#créneaux" onClick={() => handleTabClick('creneaux')} role="tab"
+                        <a className={`nav-link ${activeTab === 'creneaux' ? 'active' : 'form-nav-link'}`} id="tab-créneaux" href="#créneaux" onClick={() => handleTabClick('creneaux')} role="tab"
                             aria-controls="pills-creneaux" aria-selected={activeTab === 'creneaux'}>Créneaux</a>
                     </li>
                 </ul><div className="tab-content">
@@ -200,24 +215,27 @@ export default function User(props) {
                         </div>
 
                         <div className={`tab-pane fade show ${activeTab === 'RDV' ? 'active' : ''}`} id="pills-RDV" role="tabpanel" aria-labelledby="tab-RDV">
-                            <div className="rdv">
+                        <div className="rdv">
 
-                                <ul>
-                                    {rdv.map((rdvItem) => (
-                                        <li key={rdvItem.id} id={rdvItem.appointment_id} className="liste-rdv">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Rendez-vous du {rdvItem.disponibility_date}</h5>
-
-                                                    <div className="rdv-items"><b>garage : </b> &nbsp;&nbsp;{rdvItem.garage_name}</div>
-                                                    <div className="rdv-items"><b>heure_début : </b> &nbsp;&nbsp;{rdvItem.start_hour}</div>
-                                                    <div className="rdv-items"><b>heure_fin : </b> &nbsp;&nbsp;{rdvItem.end_hour}</div>
-                                                    <div className="rdv-items"><button type="button" className="btn btn-danger" onClick={() => handleSuppRdv(rdvItem.appointment_id)}>supprimer le RDV</button></div>
-                                                </div>
+                            <ul>
+                                {rdvliste.map((rdvItem) => (
+                                    <li key={rdvItem.id} id={rdvItem.appointment_id} className="liste-rdv">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Rendez-vous du {rdvItem.disponibility_date}</h5>
+                                                <div className="rdv-items"><b>Nom : </b> &nbsp;&nbsp;{rdvItem.user_name}</div>
+                                                <div className="rdv-items"><b>Prénom : </b> &nbsp;&nbsp;{rdvItem.user_firstname}</div>
+                                                <div className="rdv-items"><b>Téléphone : </b> &nbsp;&nbsp;{rdvItem.user_tel}</div>
+                                                <div className="rdv-items"><b>Mail : </b> &nbsp;&nbsp;{rdvItem.appointment_id}</div>
+                                                <div className="rdv-items"><b>Mail : </b> &nbsp;&nbsp;{rdvItem.user_mail}</div>
+                                                <div className="rdv-items"><b>heure_début : </b> &nbsp;&nbsp;{rdvItem.start_hour}</div>
+                                                <div className="rdv-items"><b>heure_fin : </b> &nbsp;&nbsp;{rdvItem.end_hour}</div>
+                                                <div className="rdv-items"><button type="button" className="btn btn-danger" onClick={() => handleSuppRdv(rdvItem.appointment_id)}>supprimer le RDV</button></div>
                                             </div>
-                                        </li>
-                                    ))}
-                                </ul>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
 
                             </div>
 
@@ -225,8 +243,9 @@ export default function User(props) {
                         <div className={`tab-pane fade show ${activeTab === 'modifier' ? 'active' : ''}`} id="pills-modifier" role="tabpanel" aria-labelledby="tab-modifier">
                             <button type="button" className="btn btn-danger" onClick={() => handleClick()}>Supprimer compte</button>
                         </div>
+
                         <div className={`tab-pane fade show ${activeTab === 'creneaux' ? 'active' : ''}`} id="pills-profil" role="tabpanel" aria-labelledby="tab-creneaux">
-                        <div>
+                    <div>
                             <h1>Créneaux du garage</h1>
                             <table style={{ margin: "0 auto", border: "1px solid black", borderCollapse: "collapse", marginTop: "20px", marginBottom: "50px"}}>
                                 <thead>
