@@ -164,7 +164,7 @@ function MyCalendar(props) {
               <label>Choix du créneau :</label>
               <div className="row">
                 {disponibilities.map((disponibility) => {
-                  <>
+                  return(
                     <div onChange={handleOptionChange}>
                       <label
                         key={disponibility.disponibility_id}
@@ -185,7 +185,7 @@ function MyCalendar(props) {
                         value={disponibility.disponibility_id}
                       />
                     </div>
-                  </>;
+                  );
                 })}
               </div>
               <div>
