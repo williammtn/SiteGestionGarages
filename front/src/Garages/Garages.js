@@ -1,31 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-
+import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
 
 function Garage() {
     const [garages, setGarages] = useState([]);
+  
     useEffect(() => {
-        fetch('http://localhost:8000/garages')
-          .then(response => response.json())
-          .then(data => setGarages(data))
-          .catch(error => console.error(error));
-      }, []);
+      fetch('http://localhost:8000/garages')
+        .then((response) => response.json())
+        .then((data) => setGarages(data))
+        .catch((error) => console.error(error));
+    }, []);
+  
     return (
-        <div className='garages-tab'>
-            <h2>Liste des garages</h2>
-            <ul>
+        <div className='Garage_tab' style = {{paddingTop:'100px'}}>
+            <Container className='mt-5'>
+                <h2>Liste des garages</h2>
+                <Row>
                 {garages.map((garage) => (
-                    <li key={garage.garage_id}>
-                        <h4>{garage.garage_name}</h4>
-                        <p>Mécanique : {garage.garage_mechanics ? "Oui" : "Non"}</p>
-                        <p>Carrosserie : {garage.garage_body ? "Oui" : "Non"}</p>
-                        <p>{garage.garage_address}</p>
-                        <p>{garage.garage_zipcode} {garage.garage_city}</p>
-                    </li>
+                    <Col md={4} key={garage.garage_id}>
+                    <Card>
+                        <Card.Body>
+                        <Card.Title>{garage.garage_name}</Card.Title>
+                        <ListGroup variant='flush'>
+                            <ListGroup.Item>
+                            <strong>Mécanique :</strong>{' '}
+                            {garage.garage_mechanics ? 'Oui' : 'Non'}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                            <strong>Carrosserie :</strong>{' '}
+                            {garage.garage_body ? 'Oui' : 'Non'}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                            <strong>Adresse :</strong> {garage.garage_address}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                            <strong>Code Postal et Ville :</strong>{' '}
+                            {garage.garage_zipcode} {garage.garage_city}
+                            </ListGroup.Item>
+                        </ListGroup>
+                        </Card.Body>
+                    </Card>
+                    </Col>
                 ))}
-            </ul>
-        </div>
+                </Row>
+            </Container>
+            </div>
     );
-};
+  }
 
 export default Garage;
