@@ -11,6 +11,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {useCookies} from "react-cookie";
 import User from './Profil/Profil';
 import Garage from './Garages/Garages';
+import SliderFunction from './slider/slider';
 
 function Navigation(props) {
   const navigate = useNavigate();
@@ -101,8 +102,7 @@ function App() {
           crossorigin="anonymous"></link>
           <link rel="icon" type="image/x-icon" src={process.env.PUBLIC_URL + '/favicon.ico'} />
       </Helmet>
-     
-
+      
         <div>
 
         <Navigation cookies={cookies} removeCookie={removeCookie} />
@@ -110,6 +110,7 @@ function App() {
         <Route exact={true} path='/calendrier' element={<MyCalendar/>}/>
         <Route exact={true} path='/listegarages' element={<Garage/>}/>
         <Route path="/connexion" element={<Authentification setCookie={setCookie}/>} />
+        <Route path="/accueil" element={<SliderFunction/>} />
         {/* <Route path="/accueil" element /> */}
         <Route path="profil/:id" element={<User cookies={cookies} />} />
         </Routes>
