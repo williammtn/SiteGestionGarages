@@ -22,7 +22,7 @@ function Authentification(props) {
             if (response.token === undefined) {
                 alert("échec de connexion");
             } else {
-                props.setCookie("adf", {name: person.name, token: response.token}, "/");
+                props.setCookie("adf", {mail: person.mail, token: response.token, id: response.id}, "/");
                 navigate("/accueil");
             }
         } catch (e) {
@@ -31,19 +31,27 @@ function Authentification(props) {
     }
 
     async function handleSubmitSignUp(e) {
+        
         e.preventDefault();
-        try {
-            const response = (await axios.post("http://localhost:8000/signup", newPerson)).data;
-            if(response.code == undefined){
-                alert("Utilisateur "+newPerson.name +" "+newPerson.firstname+" a été créé. Vous pouvez vous connecter");
-                navigate("/accueil");
+        let input = document.getElementById("registerPhone");
+        let value = input.value;
+        if (value.length > 10 || !/^[0-9]+$/.test(value)) {
+        return false;
+        }
+        else{
+            try {
+                const response = (await axios.post("http://localhost:8000/signup", newPerson)).data;
+                if(response.code == undefined){
+                    alert("Utilisateur "+newPerson.name +" "+newPerson.firstname+" a été créé. Vous pouvez vous connecter");
+                    navigate("/accueil");
+                }
+                else{
+                    alert("Erreur");
+                }
+                
+            } catch (e) {
+                console.error("ERR", e);
             }
-            else{
-                alert("Erreur");
-            }
-            
-        } catch (e) {
-            console.error("ERR", e);
         }
     }
 
@@ -65,7 +73,6 @@ function Authentification(props) {
             </ul>
 
             <div className="tab-content">
-
                 <div className={`tab-pane fade show ${activeTab === 'login' ? 'active' : ''}`} id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                     <form onSubmit={handleSubmitSignIn} method='POST'>
                         <div class="form-outline mb-4">
@@ -99,7 +106,7 @@ function Authentification(props) {
                         </div>
 
                         <div class="form-outline mb-4">
-                            <input type="tel" id="registerPhone" class="form-control" placeholder='Téléphone' value={newPerson.tel} onChange={e => handleTextChange(e, "tel")}/>
+                            <input type="tel" id="registerPhone" class="form-control" placeholder='Téléphone' pattern="[0-9]{0,10}" value={newPerson.tel} onChange={e => handleTextChange(e, "tel")}/>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
