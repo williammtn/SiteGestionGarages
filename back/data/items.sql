@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS garages;
 DROP TABLE IF EXISTS benefits;
 DROP TABLE IF EXISTS appointment;
+DROP TABLE IF EXISTS disponibilities;
 
 CREATE TABLE users (
     user_id integer primary key autoincrement,
@@ -69,7 +70,7 @@ VALUES ('2023-04-06 14:30:00', 'Carosserie', '01:00:00', 2, 1);
 
 INSERT INTO users (user_role, user_name, user_firstname, user_mail, user_password, user_tel) VALUES (1, 'Dupont', 'Jean', 'jean.dupont@gmail.com', 'password123', '0102030405');
 
-INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city) VALUES ('Garage Mécanique', 1, 0, '3 rue des Mécaniciens', '75010', 'Paris');
+INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city, garage_opening, garage_closing) VALUES ('Garage Mécanique', 1, 0, '3 rue des Mécaniciens', '75010', 'Paris','08:00:00','18:00:00');
 
 INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id) VALUES ('Vidange', 'Révision', '01:30:00', 1);
 
