@@ -205,14 +205,15 @@ export default function User(props) {
                     </li>
                 </ul><div className="tab-content">
                         <div className={`tab-pane fade show ${activeTab === 'profil' ? 'active' : ''}`} id="pills-profil" role="tabpanel" aria-labelledby="tab-profil">
-                            <h1>Profil de {user.user_name}</h1>
-                            <ul className="Profil-infos">
-                                <li>Nom : {user.user_name}</li>
-                                <li>Prénom : {user.user_firstname}</li>
-                                <li>Email : {user.user_mail}</li>
-                                <li>Téléphone : {user.user_tel}</li>
+                            <h1 className="display-4 mb-4">Profil de {user.user_name}</h1>
+                            <ul className="list-group">
+                                <li className="list-group-item"><strong>Nom :</strong> {user.user_name}</li>
+                                <li className="list-group-item"><strong>Prénom :</strong> {user.user_firstname}</li>
+                                <li className="list-group-item"><strong>Email :</strong> {user.user_mail}</li>
+                                <li className="list-group-item"><strong>Téléphone :</strong> {user.user_tel}</li>
                             </ul>
                         </div>
+
 
                         <div className={`tab-pane fade show ${activeTab === 'RDV' ? 'active' : ''}`} id="pills-RDV" role="tabpanel" aria-labelledby="tab-RDV">
                         <div className="rdv">
