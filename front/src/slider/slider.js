@@ -2,6 +2,7 @@ import Carousel from 'react-bootstrap/Carousel';
 
 function SliderFunction() {
   return (
+    <div>
     <Carousel>
       <Carousel.Item>
         <img
@@ -41,6 +42,16 @@ function SliderFunction() {
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
+    <div className='container' style={{textAlign: "center", marginBottom: "8vh"}}>
+      <div style={{textAlign: "center"}}>
+        <h1 style={{fontSize: "36px", fontWeight: "bold", color: "#4B4B4B",  marginBottom: "5vh", marginTop: "5vh"}}>ADF Garages</h1>
+      </div>
+      <div style={{fontSize: "20px", lineHeight: 1.5, color: "#6C6C6C"}}>
+        <p>ADF Garage est l'application qu'il vous faut pour réserver facilement un créneau pour votre voiture. Que vous soyez un automobiliste à la recherche d'un garage fiable ou un prestataire de garage souhaitant offrir vos services, notre application est là pour vous aider.</p>
+        <p>En tant que prestataire, vous pouvez facilement enregistrer votre garage sur notre application en précisant les services que vous offrez et les créneaux horaires disponibles pour les réservations. Les utilisateurs peuvent ensuite parcourir les différentes offres de garage et choisir un créneau horaire qui convient à leur emploi du temps. C'est facile, rapide et pratique !</p>
+      </div>
+      </div>
+    </div>
   );
 }
 
