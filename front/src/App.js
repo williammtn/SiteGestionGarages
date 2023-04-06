@@ -17,7 +17,7 @@ import PrivacyPolicy from './footer/confidentialite';
 import ContactUs from './footer/contact';
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
-
+import React from 'react';
 
 function Navigation(props) {
   const navigate = useNavigate();
@@ -47,12 +47,20 @@ function Navigation(props) {
       <li className="nav-item ">
         <Link to="/accueil" className="nav-link">Accueil </Link>
       </li>
-      <li className="nav-item">
+      {
+        props.cookies.adf !== undefined ? (
+          <React.Fragment>
+          <li className="nav-item">
         <Link className="nav-link" to="/calendrier" >Calendrier</Link>
       </li>
       <li className="nav-item">
         <Link to="/listegarages" className="nav-link">Liste des garages</Link>
       </li>
+      </React.Fragment>
+        ):
+        null
+      }
+     
       {mail !== undefined &&
         <li className="nav-item">
           <Link className="nav-link" to={`/profil/${id}`} ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> {mail}</Link>
