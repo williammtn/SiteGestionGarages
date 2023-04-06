@@ -141,12 +141,17 @@ function Garage(props) {
                       {garage.garage_zipcode} {garage.garage_city}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      <button
+                    {garage.user_id === user.user_id ? (<button
                         class="btn btn-primary"
                         onClick={() => handleShowForm(garage.garage_id)}
                       >
                         Ajouter un créneau
                       </button>
+                      )
+                      :
+                      null
+                      }
+                      
                     </ListGroup.Item>
                   </ListGroup>
                 </Card.Body>
