@@ -14,7 +14,7 @@ Chacun d'entre nous a apporté des compétences et des expériences uniques pour
 
 ## Base de données
 
-Le schéma entité-association se trouve dans le wiki gitlab
+Le schéma entité-association se trouve dans le wiki
 
 
 # 1)a.Présentation de l'application
