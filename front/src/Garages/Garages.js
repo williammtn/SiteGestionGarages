@@ -163,11 +163,11 @@ function Garage(props) {
                       value={garage.garage_id}
                     />
                     <label htmlFor="date">Date:</label>
-                    <input type="date" name="date" />
+                    <input type="date" id="TestCyDate" name="date" />
                     <label htmlFor="start_hour">Heure de début:</label>
-                    <input type="time" name="start_hour" />
+                    <input type="time" id="TestCyDebutHeure" name="start_hour" />
                     <label htmlFor="end_hour">Heure de fin:</label>
-                    <input type="time" name="end_hour" />
+                    <input type="time" id="TestCyFinHeure" name="end_hour" />
                     <button class="btn btn-success btn-sm" type="submit">
                       Ajouter
                     </button>

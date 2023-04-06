@@ -33,7 +33,7 @@ L'environnement de développement intégré (IDE) Visual Studio Code est l'outil
 
 Avec l'utilisation de packages tels que nodemon, react-select, react-helmet, react-bootstrap et react-cookie, nous avons pu créer une application web de qualité supérieure avec des fonctionnalités de pointe.
 
-Les packages tels que bcrypt, cors, express, jsonwebtoken, morgan, nodemon, passport, passport-jwt, et sqlite3 ont été des outils indispensables pour créer une application backend performante et sécurisée.
+Les packages tels que bcrypt, cors, mocha, chai, chai-http,express, jsonwebtoken, morgan, nodemon, passport, passport-jwt, et sqlite3 ont été des outils indispensables pour créer une application backend performante et sécurisée.
 
 # 2.Gestion de projet
 
