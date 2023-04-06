@@ -16,15 +16,6 @@ Chacun d'entre nous a apporté des compétences et des expériences uniques pour
 
 Le schéma entité-association se trouve dans le wiki gitlab
 
-## Démarrer le site en local
-
-### Pour démarrer le site, vous aurez besoin de 3 terminaux
-
-* Terminal 1 : cd front et npm run start
-* Terminal 2 : cd back et npm run start
-* Terminal 3 : cd back/data et sqlite3 -init items.sql items.db pour initialiser la base de données à partir du script si elle n'est pas à jour
-
-__Ne pas oublier de faire un npm install dans le dossier front et le dossier back pour installer les packages__
 
 # 1)a.Présentation de l'application
 
@@ -57,12 +48,41 @@ Dans l'ensemble, cette approche agile a permis une meilleure communication et co
 
 # 3.Application
 
-----------------------|-------------------|
-                      |
-Mode non connecté     |  
-                      |
-----------------------|
-                      |
-totalement fonctionnel|
-                      |
-----------------------|
+----------------------|-----------------------|------------------------|----------------------|
+                      |                                                |                      |                   
+  Mode non connecté   |                Mode connecté                   |     prestataires de  |  
+                      |                                                |        service       |
+----------------------|-----------------------|------------------------|----------------------|
+                      |                       |                        |      |        |      |
+                      |     prestataire       |  clients/usagers       |   1  |    2   |  3   |
+                      |                       |                        |      |        |      |
+----------------------|-----------------------|------------------------|----------------------|
+                      |                       |                        |                      |
+totalement fonctionnel| totalement fonctionnel| totalement fonctionnel |totalement fonctionnel|
+                      |                       |                        |                      |
+----------------------|-----------------------|------------------------|----------------------|
+
+
+# 4.Notice technique
+
+Il faudra au préalablie cloner le projet sur votre machine.
+
+Pour démarrer le site, vous aurez besoin de 3 terminaux
+
+* Terminal 1 : cd front et npm run start
+* Terminal 2 : cd back et npm run start
+* Terminal 3 : cd back/data et sqlite3 -init items.sql items.db pour initialiser la base de données à partir du script si elle n'est pas à jour
+
+__Ne pas oublier de faire un npm install dans le dossier front et le dossier back pour installer les packages__
+
+# 5.Rétrospective
+
+Nous avons fait face à quelques difficultés pour élaborer le calendrier en raison de problèmes avec les bibliothèques. En outre, il était difficile de mettre en œuvre toutes les fonctionnalités nécessaires dans un délai si court, y compris la mise en place des tests.
+
+Nous avons réussi à suivre une méthode agile du début à la fin, ce qui a permis à notre équipe de travailler en harmonie et d'avancer efficacement tout au long du projet. Nous avons également su mettre en avant les compétences individuelles de chaque membre de l'équipe pour atteindre nos objectifs communs.
+
+En utilisant la méthode agile, nous avons pris des mesures pour minimiser les risques et grâce à une bonne gestion de Gitlab (en résolvant les conflits localement avant de pusher, etc.), nous avons régulièrement collaboré pour éviter les risques potentiels.
+
+Il y avait des possibilités d'amélioration pour le site, notamment en termes d'esthétique globale, de refactoring du code, d'amélioration de certaines fonctionnalités, telles que les menus déroulants, et enfin, en ajoutant des commentaires au code pour une meilleure lisibilité.
+
+Pour une meilleure organisation, il aurait été préférable de conserver la méthode actuelle tout en améliorant la granularité des tickets Trello en les détaillant davantage. Il aurait également été plus judicieux de créer plusieurs petits tickets plutôt qu'un seul ticket volumineux pour chaque tâche.
