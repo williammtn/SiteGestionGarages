@@ -48,19 +48,10 @@ Dans l'ensemble, cette approche agile a permis une meilleure communication et co
 
 # 3.Application
 
-----------------------|-----------------------|------------------------|----------------------|
-                      |                                                |                      |                   
-  Mode non connecté   |                Mode connecté                   |     prestataires de  |  
-                      |                                                |        service       |
-----------------------|-----------------------|------------------------|----------------------|
-                      |                       |                        |      |        |      |
-                      |     prestataire       |  clients/usagers       |   1  |    2   |  3   |
-                      |                       |                        |      |        |      |
-----------------------|-----------------------|------------------------|----------------------|
-                      |                       |                        |                      |
-totalement fonctionnel| totalement fonctionnel| totalement fonctionnel |totalement fonctionnel|
-                      |                       |                        |                      |
-----------------------|-----------------------|------------------------|----------------------|
+| Mode non connecté      | Mode connecté                  | Prestataire de service |
+|------------------------|--------------------------------|------------------------|
+|                        | Prestataire et clients/usagers | Garages 1, 2 et 3      |
+| totalement fonctionnel | totalement fonctionnel         | totalement fonctionnel |
 
 
 # 4.Notice technique
