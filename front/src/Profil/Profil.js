@@ -199,7 +199,7 @@ export default function User(props) {
                                 <ul>
                                     {rdv.map((rdvItem) => (
                                         <li key={rdvItem.id} id={rdvItem.appointment_id} className="liste-rdv">
-                                            <div class="card">
+                                            <div class="card mb-2">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Rendez-vous du {rdvItem.disponibility_date}</h5>
 
@@ -319,7 +319,7 @@ export default function User(props) {
                             <ul>
                                 {rdvliste.map((rdvItem) => (
                                     <li key={rdvItem.id} id={rdvItem.appointment_id} className="liste-rdv">
-                                        <div class="card">
+                                        <div class="card mb-2">
                                             <div class="card-body">
                                                 <h5 class="card-title">Rendez-vous du {rdvItem.disponibility_date}</h5>
                                                 <div className="rdv-items"><b>Nom : </b> &nbsp;&nbsp;{rdvItem.user_name}</div>
