@@ -199,7 +199,7 @@ export default function User(props) {
                                 <ul>
                                     {rdv.map((rdvItem) => (
                                         <li key={rdvItem.id} id={rdvItem.appointment_id} className="liste-rdv">
-                                            <div class="card">
+                                            <div class="card mb-2">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Rendez-vous du {rdvItem.disponibility_date}</h5>
 
@@ -319,15 +319,16 @@ export default function User(props) {
                             <ul>
                                 {rdvliste.map((rdvItem) => (
                                     <li key={rdvItem.id} id={rdvItem.appointment_id} className="liste-rdv">
-                                        <div class="card">
+                                        <div class="card mb-2">
                                             <div class="card-body">
                                                 <h5 class="card-title">Rendez-vous du {rdvItem.disponibility_date}</h5>
                                                 <div className="rdv-items"><b>Nom : </b> &nbsp;&nbsp;{rdvItem.user_name}</div>
                                                 <div className="rdv-items"><b>Prénom : </b> &nbsp;&nbsp;{rdvItem.user_firstname}</div>
                                                 <div className="rdv-items"><b>Téléphone : </b> &nbsp;&nbsp;{rdvItem.user_tel}</div>
                                                 <div className="rdv-items"><b>Mail : </b> &nbsp;&nbsp;{rdvItem.user_mail}</div>
-                                                <div className="rdv-items"><b>heure_début : </b> &nbsp;&nbsp;{rdvItem.start_hour}</div>
-                                                <div className="rdv-items"><b>heure_fin : </b> &nbsp;&nbsp;{rdvItem.end_hour}</div>
+                                                <div className="rdv-items"><b>Heure de début : </b> &nbsp;&nbsp;{rdvItem.start_hour}</div>
+                                                <div className="rdv-items"><b>Heure de fin : </b> &nbsp;&nbsp;{rdvItem.end_hour}</div>
+                                                <div className="rdv-items"><b>Prestation : </b> &nbsp;&nbsp;{rdvItem.benefits_name}</div>
                                                 <div className="rdv-items"><button type="button" className="btn btn-danger" onClick={() => handleSuppRdv(rdvItem.appointment_id)}>supprimer le RDV</button></div>
                                             </div>
                                         </div>

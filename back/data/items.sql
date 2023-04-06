@@ -63,28 +63,97 @@ INSERT INTO users (user_role, user_name, user_firstname, user_mail, user_passwor
 VALUES (1, 'Doe', 'John', 'john.doe@example.com', 'password123', '0123456789');
 
 INSERT INTO users (user_role, user_name, user_firstname, user_mail, user_password, user_tel)
-VALUES (1,'Mouton','William','wiwi@wiwi.com','$2b$10$E8yk1NLZ90kn9Cb4TSHlFOvVj7QdZb/kMXAQlXm2LOnxDsAPkXJ7O','0662003580');
+VALUES (1,'Mouton','William','wiwi@wiwi.fr','$2b$10$E8yk1NLZ90kn9Cb4TSHlFOvVj7QdZb/kMXAQlXm2LOnxDsAPkXJ7O','0662003580');
+
+INSERT INTO users (user_role, user_name, user_firstname, user_mail, user_password, user_tel)
+VALUES (1,'Coquet','JP','jp@jp.fr','$2b$10$2AT4nwsWKHRT4rk8LNvvWeKBhLEPlCpDmgDc3kVHbVTD5gT4ykKWO','0669696969');
 
 INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city, garage_opening, garage_closing, user_id)
-VALUES ('Garage Tropicana', 1, 0, '10 Rue du jus frais', '75009', 'Paris', '08:00', '19:00',1);
+VALUES ('Feu Vert ARRAS', 1, 1, '2 rue Claude Bernard', '62000', 'Arras', '09:00', '18:00',3);
 
 INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city, garage_opening, garage_closing,user_id)
-VALUES ('Garage Joker', 1, 0, '5 Rue du jus bien bien frais', '59000', 'Lille', '09:00', '20:00',2);
+VALUES ('Norauto', 1, 0, 'Zal N 1, Centre Commercial Carrefour, Rue Bernard Chochoy', '62800', 'Liévin', '09:00', '20:00',2);
+
+INSERT INTO garages (garage_name, garage_mechanics, garage_body, garage_address, garage_zipcode, garage_city, garage_opening, garage_closing,user_id)
+VALUES ('Speedy', 1, 1, '44 route d''Arras', '62300', 'Lens', '08:00', '15:00',1);
 
 INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
 VALUES ('Vidange', 'Mecanique', '01:00:00', 1);
 
 INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
-VALUES ('Réparation', 'Carosserie', '01:00:00', 2);
+VALUES ('Vidange', 'Mecanique', '01:00:00', 2);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Vidange', 'Mecanique', '01:00:00', 3);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Réparation', 'Carosserie', '01:00:00', 3);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Réparation', 'Carosserie', '01:00:00', 1);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Contrôle technique', 'Entretien', '04:00:00', 1);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Contrôle technique', 'Entretien', '04:00:00', 2);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Contrôle technique', 'Entretien', '04:00:00', 3);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Vidange moteur', 'Entretien', '02:30:00', 1);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Changement filtre à air', 'Entretien', '01:00:00', 1);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Changement plaquettes de frein', 'Réparation', '03:00:00', 1);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Révision complète', 'Entretien', '06:00:00', 1);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Changement batterie', 'Réparation', '01:30:00', 2);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Réparation carrosserie', 'Réparation', '04:00:00', 2);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Nettoyage intérieur et extérieur', 'Entretien', '02:00:00', 2);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Révision freins et suspensions', 'Entretien', '05:00:00', 2);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Changement pneus', 'Réparation', '02:00:00', 3);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Vidange boîte de vitesses', 'Entretien', '03:00:00', 3);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Réparation système de refroidissement', 'Réparation', '04:00:00', 3);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Remplacement courroie de distribution', 'Réparation', '05:00:00', 3);
 
 INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour)
 VALUES (1, '2023-04-10', '09:00', '12:00');
 
 INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour)
-VALUES (2, '2023-04-11', '09:00', '20:00');
+VALUES (1, '2023-04-10', '12:00', '18:00');
 
-INSERT INTO appointment (user_id, garage_id, disponibility_id, benefits_id)
-VALUES (1, 1, 1, 1);
+INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour)
+VALUES (2, '2023-04-11', '09:00', '12:00');
 
-INSERT INTO appointment (user_id, garage_id, disponibility_id, benefits_id)
-VALUES (2, 2, 2, 2);
+INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour)
+VALUES (2, '2023-04-11', '12:00', '15:00');
+
+INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour)
+VALUES (2, '2023-04-11', '15:00', '20:00');
+
+INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour)
+VALUES (3, '2023-04-11', '08:00', '12:00');
+
+INSERT INTO disponibilities (garage_id, disponibility_date, start_hour, end_hour)
+VALUES (3, '2023-04-11', '14:00', '15:00');
