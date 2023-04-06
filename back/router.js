@@ -202,7 +202,7 @@ routes.delete("/appointment_delete/:id", (req, res) => {
 });
 
 routes.get("/appointment_liste/:id", (req, res) => {
-  db.all("SELECT appointment_id, users.user_name, users.user_firstname, users.user_mail, users.user_tel, disponibilities.disponibility_date, disponibilities.start_hour, disponibilities.end_hour FROM disponibilities JOIN garages ON garages.garage_id = disponibilities.garage_id JOIN users ON users.user_id = garages.user_id JOIN appointment ON appointment.garage_id = garages.garage_id WHERE garages.garage_id = ? AND appointment.appointment_id = appointment_id ", req.params.id,
+  db.all("SELECT appointment_id, disponibility_date, start_hour, end_hour,user_name, user_firstname,user_mail,user_tel, benefits_name from appointment join users on users.user_id = appointment.user_id join disponibilities on disponibilities.disponibility_id = appointment.disponibility_id join benefits on benefits.benefits_id = appointment.benefits_id  where appointment.user_id = ?;  ", req.params.id,
     (err, rows) => {
       if (err) {
         res.status(500).send({ error: "Oups!" });
