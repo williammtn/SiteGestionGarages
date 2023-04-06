@@ -81,6 +81,9 @@ INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id
 VALUES ('Vidange', 'Mecanique', '01:00:00', 1);
 
 INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
+VALUES ('Triangle', 'Mecanique', '01:00:00', 1);
+
+INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)
 VALUES ('Vidange', 'Mecanique', '01:00:00', 2);
 
 INSERT INTO benefits (benefits_name, benefits_type, benefits_duration, garage_id)

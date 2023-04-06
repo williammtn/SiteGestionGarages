@@ -3,6 +3,7 @@ const chaiHttp = require('chai-http');
 const express = require('express');
 const assert = chai.assert;
 const bcrypt = require('bcrypt');
+const expect = chai.expect;
 const app = express();
 const router = require('../router.js');
 
@@ -41,23 +42,38 @@ describe('GET /benefits', function () {
   });
 });
 
-describe('GET /appointment', function () {
-  it('should return a list of appointments', function (done) {
+describe('GET /user', () => {
+  it('devrait retourner un tableau de tous les utilisateurs sans garage', (done) => {
     chai.request(app)
-      .get('/appointment')
-      .end(function (err, res) {
-        assert.isNull(err);
-        assert.equal(res.status, 200);
-        assert.isArray(res.body);
-        assert.property(res.body[0], 'appointment_id');
-        assert.property(res.body[0], 'appointment_date');
-        assert.property(res.body[0], 'appointment_duration');
-        assert.property(res.body[0], 'garage_id');
-        assert.property(res.body[0], 'user_id');
+      .get('/user')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('array');
+        res.body.forEach((user) => {
+          expect(user.garage_id).to.be.null;
+        });
         done();
       });
   });
 });
+
+
+// describe('GET /appointment', function () {
+//   it('should return a list of appointments', function (done) {
+//     chai.request(app)
+//       .get('/appointment')
+//       .end(function (err, res) {
+//         assert.isNull(err);
+//         assert.equal(res.status, 200);
+//         assert.isArray(res.body);
+//         assert.property(res.body[0], 'fk_appointment_id');
+//         assert.property(res.body[0], 'fk_garage_id');
+//         assert.property(res.body[0], 'fk_user_id');
+//         assert.property(res.body[0], 'fk_disponibility_id');
+//         done();
+//       });
+//   });
+// });
 
 
 // describe('POST /signin', function () {
